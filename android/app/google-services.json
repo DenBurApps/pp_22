@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "98708427244",
+    "project_id": "coinzmasterpp22",
+    "storage_bucket": "coinzmasterpp22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98708427244:android:7fecfa22e6fdd43d1f30c9",
+        "android_client_info": {
+          "package_name": "com.example.pp_22"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC04TE9C2Jucq9XpoyFxQ7SlQu4GGzqa3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98708427244:android:4816be43e62df1d51f30c9",
+        "android_client_info": {
+          "package_name": "com.example.pp_22_copy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC04TE9C2Jucq9XpoyFxQ7SlQu4GGzqa3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

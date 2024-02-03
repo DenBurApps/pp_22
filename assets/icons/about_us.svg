@@ -1,0 +1,10 @@
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mdi:message-settings" clip-path="url(#clip0_16_40597)">
+<path id="Vector" d="M20 2.5H4C3.46957 2.5 2.96086 2.71071 2.58579 3.08579C2.21071 3.46086 2 3.96957 2 4.5V22.5L6 18.5H20C20.5304 18.5 21.0391 18.2893 21.4142 17.9142C21.7893 17.5391 22 17.0304 22 16.5V4.5C22 3.96957 21.7893 3.46086 21.4142 3.08579C21.0391 2.71071 20.5304 2.5 20 2.5ZM11 24.5H13V22.5H11V24.5ZM7 24.5H9V22.5H7V24.5ZM15 24.5H17V22.5H15V24.5Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_16_40597">
+<rect width="24" height="24" fill="white" transform="translate(0 0.5)"/>
+</clipPath>
+</defs>
+</svg>
