@@ -36,3 +36,11 @@ class CoinDetailsViewArguments {
     required this.coin,
   });
 }
+
+class PaywallViewArguments {
+  final bool isFromOnboarding;
+
+  PaywallViewArguments({
+    this.isFromOnboarding = false,
+  });
+}

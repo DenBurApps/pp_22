@@ -6,6 +6,7 @@ import 'package:pp_22_copy/presentation/modules/onboarding_view.dart';
 import 'package:pp_22_copy/presentation/modules/pages/camera/view/camera_view.dart';
 import 'package:pp_22_copy/presentation/modules/pages/collections/views/collection_view.dart';
 import 'package:pp_22_copy/presentation/modules/pages/pages_view.dart';
+import 'package:pp_22_copy/presentation/modules/paywall_view.dart';
 import 'package:pp_22_copy/presentation/modules/privacy_view.dart';
 import 'package:pp_22_copy/presentation/modules/search/views/camera_search_view.dart';
 import 'package:pp_22_copy/presentation/modules/search/views/query_search_view.dart';
@@ -30,5 +31,6 @@ class AppRoutes {
         RouteNames.search: (context) => const QuerySearchView(),
         RouteNames.cameraSearch: (context) => CameraSearchView.create(context),
         RouteNames.coinDetails: (context) => CoinDetailsView.create(context),
+        RouteNames.paywall:(context) => PayWallView.create(context), 
       };
 }

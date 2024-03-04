@@ -140,6 +140,9 @@ class $AssetsImagesGen {
   AssetGenImage get onboarding3 =>
       const AssetGenImage('assets/images/onboarding_3.png');
 
+  /// File path: assets/images/paywall.png
+  AssetGenImage get paywall => const AssetGenImage('assets/images/paywall.png');
+
   /// File path: assets/images/right_example.png
   AssetGenImage get rightExample =>
       const AssetGenImage('assets/images/right_example.png');
@@ -155,6 +158,7 @@ class $AssetsImagesGen {
         onboarding1,
         onboarding2,
         onboarding3,
+        paywall,
         rightExample,
         wrongExample
       ];

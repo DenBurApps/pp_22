@@ -24,7 +24,7 @@ class AppButton extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(20),
           color: backgroundColor ??
               Theme.of(context)
                   .colorScheme
@@ -33,7 +33,7 @@ class AppButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 color: Theme.of(context)
                     .colorScheme
                     .onPrimary

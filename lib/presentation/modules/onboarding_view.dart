@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_22_copy/generated/assets.gen.dart';
+import 'package:pp_22_copy/models/arguments.dart';
 import 'package:pp_22_copy/presentation/components/app_close_button.dart';
 import 'package:pp_22_copy/routes/routes.dart';
 import 'package:pp_22_copy/services/database/database_keys.dart';
@@ -47,7 +48,10 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   void _progress() {
     if (_currentStep == 2) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.pages);
+      Navigator.of(context).pushReplacementNamed(
+        RouteNames.paywall,
+        arguments: PaywallViewArguments(isFromOnboarding: true),
+      );
     } else {
       setState(() => _currentStep++);
     }
@@ -57,8 +61,10 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: AppCloseButton(
-        onPressed: () =>
-            Navigator.of(context).pushReplacementNamed(RouteNames.pages),
+        onPressed: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.paywall,
+          arguments: PaywallViewArguments(isFromOnboarding: true),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: GestureDetector(
