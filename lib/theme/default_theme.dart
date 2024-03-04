@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pp_22_copy/theme/custom_colors.dart';
 
 class DefaultTheme {
-  static const primary = Color(0xFF2F2CE6);
+  static const primary = Color(0xFF3451B2);
   static const onPrimary = Colors.white;
   static const secondary = Color(0xFFFB6B4FF);
   static const onSecondary = Colors.white;
   static const error = Colors.red;
   static const onError = Colors.white;
-  static const background = Color(0xFFEBEBFF);
-  static const onBackground = Color(0xFF0A0A0A);
+  static const background = Colors.white;
+  static const onBackground = Color(0xFF101D46);
   static const surface = Colors.white;
   static const onSurface = Colors.black;
 
@@ -21,36 +21,26 @@ class DefaultTheme {
       modalBackgroundColor: Colors.transparent,
       elevation: 0,
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: background,
-      centerTitle: true,
-      elevation: 0,
-      titleTextStyle: GoogleFonts.arimo(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: onBackground,
-      ),
-    ),
     textTheme: TextTheme(
       displayLarge: GoogleFonts.arimo(
-        fontWeight: FontWeight.w700,
-        fontSize: 32,
+        fontWeight: FontWeight.w400,
+        fontSize: 25,
       ),
       displayMedium: GoogleFonts.arimo(
         fontWeight: FontWeight.w700,
         fontSize: 20.0,
       ),
       displaySmall: GoogleFonts.arimo(
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w400,
         fontSize: 16.0,
       ),
       headlineMedium: GoogleFonts.arimo(
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w400,
         fontSize: 14.0,
       ),
       headlineSmall: GoogleFonts.arimo(
         fontWeight: FontWeight.w400,
-        fontSize: 13.0,
+        fontSize: 12.0,
       ),
     ).apply(
       bodyColor: onBackground,

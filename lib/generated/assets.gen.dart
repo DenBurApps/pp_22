@@ -67,6 +67,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/more.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/more.svg');
 
+  /// File path: assets/icons/onboarding_search.svg
+  SvgGenImage get onboardingSearch =>
+      const SvgGenImage('assets/icons/onboarding_search.svg');
+
   /// File path: assets/icons/photos.svg
   SvgGenImage get photos => const SvgGenImage('assets/icons/photos.svg');
 
@@ -103,6 +107,7 @@ class $AssetsIconsGen {
         home,
         info,
         more,
+        onboardingSearch,
         photos,
         privacy,
         rateUs,
@@ -120,17 +125,20 @@ class $AssetsImagesGen {
   AssetGenImage get coinsHome =>
       const AssetGenImage('assets/images/coins_home.png');
 
-  /// File path: assets/images/onbording_1.png
-  AssetGenImage get onbording1 =>
-      const AssetGenImage('assets/images/onbording_1.png');
+  /// File path: assets/images/icon.png
+  AssetGenImage get icon => const AssetGenImage('assets/images/icon.png');
 
-  /// File path: assets/images/onbording_2.png
-  AssetGenImage get onbording2 =>
-      const AssetGenImage('assets/images/onbording_2.png');
+  /// File path: assets/images/onboarding_1.png
+  AssetGenImage get onboarding1 =>
+      const AssetGenImage('assets/images/onboarding_1.png');
 
-  /// File path: assets/images/onbording_3.png
-  AssetGenImage get onbording3 =>
-      const AssetGenImage('assets/images/onbording_3.png');
+  /// File path: assets/images/onboarding_2.png
+  AssetGenImage get onboarding2 =>
+      const AssetGenImage('assets/images/onboarding_2.png');
+
+  /// File path: assets/images/onboarding_3.png
+  AssetGenImage get onboarding3 =>
+      const AssetGenImage('assets/images/onboarding_3.png');
 
   /// File path: assets/images/right_example.png
   AssetGenImage get rightExample =>
@@ -143,9 +151,10 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         coinsHome,
-        onbording1,
-        onbording2,
-        onbording3,
+        icon,
+        onboarding1,
+        onboarding2,
+        onboarding3,
         rightExample,
         wrongExample
       ];

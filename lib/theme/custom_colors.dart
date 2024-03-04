@@ -27,7 +27,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
 
   static const customColors = CustomColors(
     green: Color.fromARGB(255, 136, 191, 63),
-    red: Color(0xFFF23535),
+    red: Color(0xFFCD2B31),
     disabled: Color(0xFFD3D3D9),
   );
 

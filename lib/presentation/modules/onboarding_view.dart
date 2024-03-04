@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_22_copy/generated/assets.gen.dart';
+import 'package:pp_22_copy/presentation/components/app_close_button.dart';
 import 'package:pp_22_copy/routes/routes.dart';
 import 'package:pp_22_copy/services/database/database_keys.dart';
 import 'package:pp_22_copy/services/database/database_service.dart';
@@ -20,16 +21,17 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   final _steps = [
     _OnboardingStep(
-      background: Assets.images.onbording1,
-      description: 'Quick coin scanning\nand identifying',
+      background: Assets.images.onboarding1,
+      description: 'Find the coins',
+      icon: Assets.icons.onboardingSearch,
     ),
     _OnboardingStep(
-      background: Assets.images.onbording2,
-      description: 'Huge library of coins\nfrom different times',
+      background: Assets.images.onboarding2,
+      description: 'Recognize their value',
     ),
     _OnboardingStep(
-      background: Assets.images.onbording3,
-      description: 'Collect your own\nexclusive collection',
+      background: Assets.images.onboarding3,
+      description: 'Build your collections',
     ),
   ];
 
@@ -54,44 +56,84 @@ class _OnboardingViewState extends State<OnboardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: _steps[_currentStep].background.provider(),
-            fit: BoxFit.cover,
+      floatingActionButton: AppCloseButton(
+        onPressed: () =>
+            Navigator.of(context).pushReplacementNamed(RouteNames.pages),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: GestureDetector(
+        onTap: _progress,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: _steps[_currentStep].background.provider(),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _steps[_currentStep].description,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 33,
+                          ),
+                    ),
+                    if (_steps[_currentStep].icon != null) ...[
+                      SizedBox(width: 30),
+                      _steps[_currentStep].icon!.svg(),
+                    ]
+                  ],
+                ),
+                SizedBox(height: 60),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    3,
+                    (index) => _TextStep(
+                        value: index + 1, isActive: index == _currentStep),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              _steps[_currentStep].description,
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.surface),
-            ),
-            SizedBox(height: 60),
-            CupertinoButton(
-              padding: EdgeInsets.zero,
-              child: Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border:
-                      Border.all(color: Theme.of(context).colorScheme.surface),
+      ),
+    );
+  }
+}
+
+class _TextStep extends StatelessWidget {
+  final int value;
+  final bool isActive;
+  const _TextStep({required this.value, required this.isActive});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 30,
+      child: Text(
+        value.toString(),
+        textAlign: TextAlign.center,
+        style: isActive
+            ? Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(color: Theme.of(context).colorScheme.primary)
+            : Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.5),
                 ),
-                child: Assets.icons.forward.svg(),
-              ),
-              onPressed: _progress,
-            ),
-            SizedBox(height: 40)
-          ],
-        ),
       ),
     );
   }
@@ -100,9 +142,11 @@ class _OnboardingViewState extends State<OnboardingView> {
 class _OnboardingStep {
   final AssetGenImage background;
   final String description;
+  final SvgGenImage? icon;
 
   const _OnboardingStep({
     required this.background,
     required this.description,
+    this.icon,
   });
 }

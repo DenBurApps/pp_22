@@ -56,16 +56,7 @@ class _SplashViewState extends State<SplashView> {
 
   void _navigate() {
     FlutterNativeSplash.remove();
-    final acceptedPrivacy =
-        _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
-    if (!acceptedPrivacy) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.privacy);
-    } else {
-      final seenOnboarding =
-          _databaseService.get(DatabaseKeys.seenOnboarding) ?? false;
-      Navigator.of(context).pushReplacementNamed(
-          !seenOnboarding ? RouteNames.onboarding : RouteNames.pages);
-    }
+    Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
   }
 
   @override
