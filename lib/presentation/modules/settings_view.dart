@@ -4,8 +4,6 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:pp_22_copy/generated/assets.gen.dart';
 import 'package:pp_22_copy/helpers/dialog_helper.dart';
 import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_back_button.dart';
-import 'package:pp_22_copy/presentation/components/app_banner.dart';
 import 'package:pp_22_copy/presentation/modules/agreement_view.dart';
 import 'package:pp_22_copy/routes/routes.dart';
 
@@ -41,17 +39,16 @@ class _SettingsViewState extends State<SettingsView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  AppBackButton(),
-                  SizedBox(width: 9),
-                  Expanded(child: AppBanner(label: 'Settings')),
-                ],
+              Align(
+                child: Text(
+                  "Settings",
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
               ),
               const SizedBox(height: 28),
               Text(
                 'Information',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 13),
               _SettingsButton(
@@ -75,10 +72,21 @@ class _SettingsViewState extends State<SettingsView> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 35),
+              Text(
+                'My collections',
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(height: 13),
+              _SettingsButton(
+                icon: Assets.icons.settingsCollections,
+                title: 'My collections',
+                onPressed: _rate,
+              ),
+              const SizedBox(height: 35),
               Text(
                 'Contact us',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 13),
               _SettingsButton(
@@ -88,7 +96,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               const SizedBox(height: 10),
               _SettingsButton(
-                icon: Assets.icons.aboutUs,
+                icon: Assets.icons.contactDeveloper,
                 title: 'Contact with support',
                 onPressed: () =>
                     Navigator.of(context).pushNamed(RouteNames.contactSupport),
@@ -121,30 +129,24 @@ class _SettingsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(13)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            icon.svg(color: Theme.of(context).colorScheme.onSecondary),
-            const SizedBox(width: 7),
-            Text(
-              title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onSecondary),
-            ),
-            const Spacer(),
-            Icon(
-              Icons.chevron_right,
-              color: Theme.of(context).colorScheme.onSecondary,
-            )
-          ],
-        ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          icon.svg(color: Theme.of(context).colorScheme.onBackground),
+          const SizedBox(width: 7),
+          Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          const Spacer(),
+          Icon(
+            Icons.chevron_right,
+            color: Theme.of(context).colorScheme.onBackground,
+          )
+        ],
       ),
       onPressed: onPressed,
     );

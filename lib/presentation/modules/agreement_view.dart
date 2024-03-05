@@ -5,6 +5,7 @@ import 'package:pp_22_copy/helpers/text_helper.dart';
 import 'package:pp_22_copy/models/arguments.dart';
 import 'package:pp_22_copy/presentation/components/app_back_button.dart';
 import 'package:pp_22_copy/presentation/components/app_banner.dart';
+import 'package:pp_22_copy/presentation/components/app_close_button.dart';
 
 class AgreementView extends StatelessWidget {
   final AgreementViewArguments arguments;
@@ -30,38 +31,47 @@ class AgreementView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-              child: Row(
+        child: Padding(
+           padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppBackButton(),
-                  SizedBox(width: 9),
-                  Expanded(child: AppBanner(label: _title)),
+                  SizedBox(width: 30), 
+                  Text(_title, style: Theme.of(context).textTheme.displayLarge,), 
+                  AppCloseButton()
                 ],
               ),
-            ),
-            SizedBox(height: 15),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
-                child: MarkdownBody(
-                  data: _agreementText,
-                  onTapLink: (text, href, title) =>
-                      EmailHelper.launchEmailSubmission(
-                    toEmail: text,
-                    subject: '',
-                    body: '',
-                    errorCallback: () {},
-                    doneCallback: () {},
+              SizedBox(height: 15),
+              Expanded(
+                child: Scrollbar(
+                  child: SingleChildScrollView(
+                   physics: const BouncingScrollPhysics(),
+                    child: MarkdownBody(
+                      styleSheet: MarkdownStyleSheet(
+                        h1: Theme.of(context).textTheme.displayMedium, 
+                        h2: Theme.of(context).textTheme.headlineMedium, 
+                        h3: Theme.of(context).textTheme.displaySmall, 
+                        h4: Theme.of(context).textTheme.headlineSmall, 
+                      ),
+                      data: _agreementText,
+                      onTapLink: (text, href, title) =>
+                          EmailHelper.launchEmailSubmission(
+                        toEmail: text,
+                        subject: '',
+                        body: '',
+                        errorCallback: () {},
+                        doneCallback: () {},
+                      ),
+                      selectable: true,
+                    ),
                   ),
-                  selectable: true,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

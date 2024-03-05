@@ -49,6 +49,10 @@ class $AssetsIconsGen {
   SvgGenImage get collections =>
       const SvgGenImage('assets/icons/collections.svg');
 
+  /// File path: assets/icons/contact_developer.svg
+  SvgGenImage get contactDeveloper =>
+      const SvgGenImage('assets/icons/contact_developer.svg');
+
   /// File path: assets/icons/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
 
@@ -80,11 +84,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/rate_us.svg
   SvgGenImage get rateUs => const SvgGenImage('assets/icons/rate_us.svg');
 
+  /// File path: assets/icons/scan.svg
+  SvgGenImage get scan => const SvgGenImage('assets/icons/scan.svg');
+
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
   /// File path: assets/icons/settings.svg
   SvgGenImage get settings => const SvgGenImage('assets/icons/settings.svg');
+
+  /// File path: assets/icons/settings_collections.svg
+  SvgGenImage get settingsCollections =>
+      const SvgGenImage('assets/icons/settings_collections.svg');
 
   /// File path: assets/icons/terms.svg
   SvgGenImage get terms => const SvgGenImage('assets/icons/terms.svg');
@@ -101,6 +112,7 @@ class $AssetsIconsGen {
         close,
         coinParams,
         collections,
+        contactDeveloper,
         edit,
         flash,
         forward,
@@ -111,8 +123,10 @@ class $AssetsIconsGen {
         photos,
         privacy,
         rateUs,
+        scan,
         search,
         settings,
+        settingsCollections,
         terms,
         version
       ];
@@ -124,6 +138,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/coins_home.png
   AssetGenImage get coinsHome =>
       const AssetGenImage('assets/images/coins_home.png');
+
+  /// File path: assets/images/hand.png
+  AssetGenImage get hand => const AssetGenImage('assets/images/hand.png');
 
   /// File path: assets/images/icon.png
   AssetGenImage get icon => const AssetGenImage('assets/images/icon.png');
@@ -154,6 +171,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         coinsHome,
+        hand,
         icon,
         onboarding1,
         onboarding2,
