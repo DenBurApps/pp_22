@@ -60,7 +60,7 @@ flutter_gen:
   flutter_lints: ^2.0.0
 
 flutter_native_splash:
-  color: "#8684FF"
+  color: "#A8B3DA"
   image: assets/images/icon.png
 
 flutter_launcher_icons:
