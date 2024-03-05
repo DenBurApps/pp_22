@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.pp22Copy</string>
+	<string>com.coinzp.22app</string>
 	<key>PROJECT_ID</key>
 	<string>coinzmasterpp22</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:98708427244:ios:07f2f8f36ad1d9d21f30c9</string>
+	<string>1:98708427244:ios:1a910a5925ef89231f30c9</string>
 </dict>
 </plist>
