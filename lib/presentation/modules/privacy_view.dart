@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_22_copy/presentation/components/app_button.dart';
+import 'package:pp_22_copy/presentation/components/loading_animation.dart';
 import 'package:pp_22_copy/routes/routes.dart';
 import 'package:pp_22_copy/services/database/database_keys.dart';
 import 'package:pp_22_copy/services/database/database_service.dart';
@@ -89,7 +90,6 @@ class _PrivacyViewState extends State<PrivacyView> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          
           onProgress: (int progress) {
             log('WebView is loading (progress : $progress%)');
           },
@@ -144,7 +144,9 @@ class _PrivacyViewState extends State<PrivacyView> {
       backgroundColor:
           agreeButton ? Colors.white : Theme.of(context).colorScheme.background,
       body: isLoading
-          ? Center(child: CupertinoActivityIndicator(),)
+          ? Center(
+              child: LoadingAnimation(),
+            )
           : SafeArea(
               child: Stack(
                 children: [

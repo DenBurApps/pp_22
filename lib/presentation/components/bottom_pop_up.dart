@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
+import 'package:pp_22_copy/presentation/components/app_close_button.dart';
 
 class BottomPopUp extends StatelessWidget {
   final String title;
@@ -15,8 +15,8 @@ class BottomPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 20),
       width: double.infinity,
-      padding: padding ?? const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.only(
@@ -24,35 +24,28 @@ class BottomPopUp extends StatelessWidget {
           topRight: Radius.circular(40),
         ),
       ),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Material(
-                child: Text(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(width: 30), 
+                Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
-              ),
-              const SizedBox(height: 20),
-              ...body,
-            ],
-          ),
-          Positioned(
-            right: 0,
-            child: GestureDetector(
-              onTap: Navigator.of(context).pop,
-              child: Assets.icons.close.svg(
-                width: 20, 
-                height: 20,
-                color: Theme.of(context).colorScheme.primary)
+                AppCloseButton(), 
+              ],
             ),
-          )
+          ),
+          const SizedBox(height: 20),
+          ...body,
         ],
       ),
     );

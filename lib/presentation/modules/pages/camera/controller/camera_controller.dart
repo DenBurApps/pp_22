@@ -27,6 +27,7 @@ class ICameraController extends ValueNotifier<CameraState> {
           imageFormatGroup: ImageFormatGroup.jpeg,
         );
         await camera.initialize();
+
         value = value.copyWith(camera: camera);
       }
       value = value.copyWith(isLoading: false);

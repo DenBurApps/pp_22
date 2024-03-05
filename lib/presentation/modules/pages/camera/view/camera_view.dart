@@ -4,7 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pp_22_copy/generated/assets.gen.dart';
 import 'package:pp_22_copy/models/arguments.dart';
 import 'package:pp_22_copy/presentation/components/app_button.dart';
@@ -136,25 +135,34 @@ class _CameraViewState extends State<CameraView> {
         child: BottomPopUp(
           title: 'Snap Tips',
           body: [
-            Text(
-              'Place your coin in the center of the frame, the camera will automatically take a picture.',
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.5),
-                  ),
-              textAlign: TextAlign.center,
+            Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'To scan a coin: ',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '1. point it at the center of the screen and the camera will automatically take a picture.',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+              SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '2. scan both sides of the coin, the front and back of the coin.',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ),
             const SizedBox(height: 20),
             Assets.images.rightExample.image(),
             const SizedBox(height: 20),
             Assets.images.wrongExample.image(),
             const SizedBox(height: 32),
-            AppButton(
-              onPressed: Navigator.of(context).pop,
-              label: 'Got it',
-            )
           ],
         ),
       ),
@@ -184,23 +192,19 @@ class _CameraViewState extends State<CameraView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _AppBarButton(
-                  icon: Assets.icons.close
-                      .svg(color: Theme.of(context).colorScheme.surface),
+                  icon: Assets.icons.close,
                   onPressed: Navigator.of(context).pop,
                 ),
                 _AppBarButton(
-                  icon: Assets.icons.info
-                      .svg(color: Theme.of(context).colorScheme.surface),
+                  icon: Assets.icons.info,
                   onPressed: _infoAction,
                 ),
                 ValueListenableBuilder(
                   valueListenable: _cameraController,
                   builder: (context, value, child) => _AppBarButton(
-                    icon: Assets.icons.flash.svg(
-                      color: value.isFlashActive
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surface,
-                    ),
+                    icon: value.isFlashActive
+                        ? Assets.icons.flashOff
+                        : Assets.icons.flashOn,
                     onPressed: _flashAction,
                   ),
                 )
@@ -284,7 +288,7 @@ class _BottomPanel extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: photosAction,
             child: Assets.icons.photos.svg(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
             ),
           ),
           SizedBox(
@@ -320,7 +324,7 @@ class _BottomPanel extends StatelessWidget {
 }
 
 class _AppBarButton extends StatelessWidget {
-  final SvgPicture icon;
+  final SvgGenImage icon;
   final VoidCallback? onPressed;
   const _AppBarButton({
     required this.icon,
@@ -332,7 +336,7 @@ class _AppBarButton extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       onPressed: onPressed,
-      child: icon,
+      child: icon.svg(color: Theme.of(context).colorScheme.surface),
     );
   }
 }
@@ -545,7 +549,7 @@ class _Zoom extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(0.8),
+          color: Theme.of(context).colorScheme.surface,
           shape: BoxShape.circle,
         ),
         height: 40,

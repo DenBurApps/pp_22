@@ -3,8 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:pp_22_copy/helpers/email_helper.dart';
 import 'package:pp_22_copy/helpers/text_helper.dart';
 import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_back_button.dart';
-import 'package:pp_22_copy/presentation/components/app_banner.dart';
 import 'package:pp_22_copy/presentation/components/app_close_button.dart';
 
 class AgreementView extends StatelessWidget {

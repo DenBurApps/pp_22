@@ -56,8 +56,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
 
-  /// File path: assets/icons/flash.svg
-  SvgGenImage get flash => const SvgGenImage('assets/icons/flash.svg');
+  /// File path: assets/icons/flash_off.svg
+  SvgGenImage get flashOff => const SvgGenImage('assets/icons/flash_off.svg');
+
+  /// File path: assets/icons/flash_on.svg
+  SvgGenImage get flashOn => const SvgGenImage('assets/icons/flash_on.svg');
 
   /// File path: assets/icons/forward.svg
   SvgGenImage get forward => const SvgGenImage('assets/icons/forward.svg');
@@ -114,7 +117,8 @@ class $AssetsIconsGen {
         collections,
         contactDeveloper,
         edit,
-        flash,
+        flashOff,
+        flashOn,
         forward,
         home,
         info,

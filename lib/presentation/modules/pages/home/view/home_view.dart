@@ -77,10 +77,11 @@ class HomeView extends StatelessWidget {
                       ),
                 ),
               ),
-              SizedBox(height: 10),
-              Assets.images.hand.image(
-                fit: BoxFit.fitWidth,
-                width: double.infinity,
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Assets.images.hand.image(
+                  width: double.infinity,
+                ),
               ),
             ],
           ),
