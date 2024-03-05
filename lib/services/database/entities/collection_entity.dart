@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/services/database/entities/coin_entity.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/services/database/entities/coin_entity.dart';
 
 part 'collection_entity.g.dart';
 

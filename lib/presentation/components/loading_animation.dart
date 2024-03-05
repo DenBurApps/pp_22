@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
+import 'package:pp_22/generated/assets.gen.dart';
 
 class LoadingAnimation extends StatelessWidget {
   final Alignment? alignment;

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pp_22_copy/services/database/entities/coin_entity.dart';
-import 'package:pp_22_copy/services/database/entities/collection_entity.dart';
+import 'package:pp_22/services/database/entities/coin_entity.dart';
+import 'package:pp_22/services/database/entities/collection_entity.dart';
 
 class DatabaseService {
   late final Box _common;

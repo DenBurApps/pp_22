@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/presentation/components/app_button.dart';
-import 'package:pp_22_copy/presentation/components/loading_animation.dart';
-import 'package:pp_22_copy/routes/routes.dart';
-import 'package:pp_22_copy/services/database/database_keys.dart';
-import 'package:pp_22_copy/services/database/database_service.dart';
-import 'package:pp_22_copy/services/remote_config_service.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/loading_animation.dart';
+import 'package:pp_22/routes/routes.dart';
+import 'package:pp_22/services/database/database_keys.dart';
+import 'package:pp_22/services/database/database_service.dart';
+import 'package:pp_22/services/remote_config_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // #docregion platform_imports
 // Import for Android features.

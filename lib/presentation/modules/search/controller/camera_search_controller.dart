@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/services/coin_api_service.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/services/coin_api_service.dart';
 
 class CameraSearchController extends ValueNotifier<CoinSearchResultState> {
   CameraSearchController() : super(CoinSearchResultState.initial());

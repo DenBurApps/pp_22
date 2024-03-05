@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/presentation/components/cover_builder.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/presentation/components/cover_builder.dart';
 
 class CoinTile extends StatelessWidget {
   final Coin coin;

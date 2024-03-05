@@ -4,13 +4,13 @@ import 'package:camera/camera.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_button.dart';
-import 'package:pp_22_copy/presentation/components/bottom_pop_up.dart';
-import 'package:pp_22_copy/presentation/components/loading_animation.dart';
-import 'package:pp_22_copy/presentation/modules/pages/camera/controller/camera_controller.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/bottom_pop_up.dart';
+import 'package:pp_22/presentation/components/loading_animation.dart';
+import 'package:pp_22/presentation/modules/pages/camera/controller/camera_controller.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class CameraView extends StatefulWidget {
   const CameraView({super.key});

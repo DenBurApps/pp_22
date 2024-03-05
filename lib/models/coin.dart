@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:pp_22_copy/services/database/entities/coin_entity.dart';
+import 'package:pp_22/services/database/entities/coin_entity.dart';
 
 abstract class Coin {
   final int id;

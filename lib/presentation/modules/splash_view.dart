@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/helpers/dialog_helper.dart';
-import 'package:pp_22_copy/routes/routes.dart';
-import 'package:pp_22_copy/services/database/database_keys.dart';
-import 'package:pp_22_copy/services/database/database_service.dart';
+import 'package:pp_22/helpers/dialog_helper.dart';
+import 'package:pp_22/routes/routes.dart';
+import 'package:pp_22/services/database/database_keys.dart';
+import 'package:pp_22/services/database/database_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

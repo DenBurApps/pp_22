@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:pp_22_copy/helpers/email_helper.dart';
-import 'package:pp_22_copy/helpers/text_helper.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_close_button.dart';
+import 'package:pp_22/helpers/email_helper.dart';
+import 'package:pp_22/helpers/text_helper.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 
 class AgreementView extends StatelessWidget {
   final AgreementViewArguments arguments;

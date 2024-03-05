@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/services/repositories/collection_repository.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/services/repositories/collection_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class CollectionsController extends ValueNotifier<CollectionsState> {

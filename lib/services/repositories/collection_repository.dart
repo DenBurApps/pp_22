@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/services/database/database_service.dart';
-import 'package:pp_22_copy/services/database/entities/collection_entity.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/services/database/database_service.dart';
+import 'package:pp_22/services/database/entities/collection_entity.dart';
 
 class CollectionsRepository extends ValueNotifier<CollectionsState> {
   CollectionsRepository() : super(CollectionsState.initial()) {

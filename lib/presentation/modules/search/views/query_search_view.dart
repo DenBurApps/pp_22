@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/presentation/components/app_back_button.dart';
-import 'package:pp_22_copy/presentation/components/coin_tile.dart';
-import 'package:pp_22_copy/presentation/components/shimmers.dart';
-import 'package:pp_22_copy/presentation/modules/search/controller/query_search_controller.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/presentation/components/app_back_button.dart';
+import 'package:pp_22/presentation/components/coin_tile.dart';
+import 'package:pp_22/presentation/components/shimmers.dart';
+import 'package:pp_22/presentation/modules/search/controller/query_search_controller.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class QuerySearchView extends StatefulWidget {
   const QuerySearchView({super.key});

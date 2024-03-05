@@ -1,8 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/services/repositories/collection_repository.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/services/repositories/collection_repository.dart';
 
 class CollectionController extends ValueNotifier<CollectionState> {
   CollectionController(super.value) {

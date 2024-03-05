@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/presentation/modules/pages/collections/views/collections_view.dart';
-import 'package:pp_22_copy/presentation/modules/pages/home/view/home_view.dart';
-import 'package:pp_22_copy/presentation/modules/settings_view.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/presentation/modules/pages/collections/views/collections_view.dart';
+import 'package:pp_22/presentation/modules/pages/home/view/home_view.dart';
+import 'package:pp_22/presentation/modules/settings_view.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class PagesView extends StatefulWidget {
   const PagesView({super.key});

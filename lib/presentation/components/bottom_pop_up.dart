@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/presentation/components/app_close_button.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 
 class BottomPopUp extends StatelessWidget {
   final String title;

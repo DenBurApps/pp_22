@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/presentation/components/cover_builder.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/presentation/components/cover_builder.dart';
 
 class CollectionCard extends StatelessWidget {
   final Collection collection;

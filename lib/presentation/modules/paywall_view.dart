@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_close_button.dart';
-import 'package:pp_22_copy/presentation/modules/agreement_view.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
+import 'package:pp_22/presentation/modules/agreement_view.dart';
+import 'package:pp_22/routes/routes.dart';
 
 import '../components/app_button.dart';
 

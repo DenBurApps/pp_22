@@ -1,7 +1,7 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
+import 'package:pp_22/generated/assets.gen.dart';
 
 class NewCollectionButton extends StatelessWidget {
   final VoidCallback? onPressed;

@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:pp_22_copy/firebase_options.dart';
-import 'package:pp_22_copy/routes/routes.dart';
-import 'package:pp_22_copy/services/service_locator.dart';
-import 'package:pp_22_copy/theme/default_theme.dart';
+import 'package:pp_22/firebase_options.dart';
+import 'package:pp_22/routes/routes.dart';
+import 'package:pp_22/services/service_locator.dart';
+import 'package:pp_22/theme/default_theme.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

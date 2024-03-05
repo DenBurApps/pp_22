@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
-import 'package:pp_22_copy/helpers/email_helper.dart';
+import 'package:pp_22/helpers/email_helper.dart';
 
-import 'package:pp_22_copy/presentation/components/app_button.dart';
-import 'package:pp_22_copy/presentation/components/app_close_button.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 
 class ContactSupportView extends StatefulWidget {
   const ContactSupportView({super.key});

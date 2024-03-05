@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:pp_22_copy/models/coin.dart';
+import 'package:pp_22/models/coin.dart';
 
 part 'coin_entity.g.dart';
 

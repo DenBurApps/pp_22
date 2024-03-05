@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/helpers/dialog_helper.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/modules/agreement_view.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/helpers/dialog_helper.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/presentation/modules/agreement_view.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});

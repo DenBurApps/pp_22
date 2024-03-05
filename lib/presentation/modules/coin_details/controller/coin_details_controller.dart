@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/models/price.dart';
-import 'package:pp_22_copy/services/coin_api_service.dart';
-import 'package:pp_22_copy/services/repositories/collection_repository.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/models/price.dart';
+import 'package:pp_22/services/coin_api_service.dart';
+import 'package:pp_22/services/repositories/collection_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class CoinDetailsController extends ValueNotifier<CoinDetailState> {

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/presentation/modules/agreement_view.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/presentation/modules/agreement_view.dart';
 
 class AgreementViewArguments {
   final AgreementType agreementType;

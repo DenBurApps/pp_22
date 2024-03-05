@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/models/collection.dart';
-import 'package:pp_22_copy/presentation/components/app_back_button.dart';
-import 'package:pp_22_copy/presentation/components/app_button.dart';
-import 'package:pp_22_copy/presentation/components/bottom_pop_up.dart';
-import 'package:pp_22_copy/presentation/components/collection_card.dart';
-import 'package:pp_22_copy/presentation/components/cover_builder.dart';
-import 'package:pp_22_copy/presentation/components/new_collection_button.dart';
-import 'package:pp_22_copy/presentation/components/shimmers.dart';
-import 'package:pp_22_copy/presentation/modules/coin_details/controller/coin_details_controller.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/models/collection.dart';
+import 'package:pp_22/presentation/components/app_back_button.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/bottom_pop_up.dart';
+import 'package:pp_22/presentation/components/collection_card.dart';
+import 'package:pp_22/presentation/components/cover_builder.dart';
+import 'package:pp_22/presentation/components/new_collection_button.dart';
+import 'package:pp_22/presentation/components/shimmers.dart';
+import 'package:pp_22/presentation/modules/coin_details/controller/coin_details_controller.dart';
 
 class CoinDetailsView extends StatefulWidget {
   final CoinDetailsViewArguments coinDetailsViewArguments;

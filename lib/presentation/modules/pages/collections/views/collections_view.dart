@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/generated/assets.gen.dart';
-import 'package:pp_22_copy/models/arguments.dart';
-import 'package:pp_22_copy/presentation/components/app_banner.dart';
-import 'package:pp_22_copy/presentation/components/app_button.dart';
-import 'package:pp_22_copy/presentation/components/bottom_pop_up.dart';
-import 'package:pp_22_copy/presentation/components/collection_card.dart';
-import 'package:pp_22_copy/presentation/components/new_collection_button.dart';
-import 'package:pp_22_copy/presentation/modules/pages/collections/controllers/collections_controller.dart';
-import 'package:pp_22_copy/routes/routes.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/models/arguments.dart';
+import 'package:pp_22/presentation/components/app_banner.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/bottom_pop_up.dart';
+import 'package:pp_22/presentation/components/collection_card.dart';
+import 'package:pp_22/presentation/components/new_collection_button.dart';
+import 'package:pp_22/presentation/modules/pages/collections/controllers/collections_controller.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class CollectionsView extends StatefulWidget {
   const CollectionsView({super.key});

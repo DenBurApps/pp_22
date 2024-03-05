@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
-import 'package:pp_22_copy/presentation/components/shimmers.dart';
+import 'package:pp_22/presentation/components/shimmers.dart';
 
 class CoverBuilder extends StatelessWidget {
   final double width;

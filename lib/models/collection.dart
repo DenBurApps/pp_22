@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/services/database/entities/collection_entity.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/services/database/entities/collection_entity.dart';
 
 class Collection extends Equatable {
   final String id;

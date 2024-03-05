@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pp_22_copy/theme/custom_colors.dart';
+import 'package:pp_22/theme/custom_colors.dart';
 
 class DefaultTheme {
   static const primary = Color(0xFF3451B2);

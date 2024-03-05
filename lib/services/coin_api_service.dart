@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:pp_22_copy/models/coin.dart';
-import 'package:pp_22_copy/models/price.dart';
-import 'package:pp_22_copy/services/remote_config_service.dart';
+import 'package:pp_22/models/coin.dart';
+import 'package:pp_22/models/price.dart';
+import 'package:pp_22/services/remote_config_service.dart';
 
 class CoinApiService {
   final _remoteConfigService = GetIt.instance<RemoteConfigService>();
