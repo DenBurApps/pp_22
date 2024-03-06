@@ -34,6 +34,7 @@ class BigCollectionCard extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: onPressed,
                 child: Container(
+                  width: double.infinity,
                   height: 270,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -41,18 +42,25 @@ class BigCollectionCard extends StatelessWidget {
                     color: Color(0xFFA8B3DA),
                   ),
                   child: collection.coins.isEmpty
-                      ? Center(
-                          child: Text(
-                            'Empty collection',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                ),
-                          ),
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Assets.images.emptyCollection.image(
+                              width: 80,
+                              height: 80,
+                            ),
+                            Text(
+                              'Empty collection',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                  ),
+                            ),
+                          ],
                         )
                       : GridView.builder(
                           shrinkWrap: true,

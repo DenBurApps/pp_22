@@ -107,15 +107,7 @@ class ShimmerCoinDetails extends StatelessWidget {
           ],
         ),
         SizedBox(height: 20), 
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-          decoration: BoxDecoration(
-            border: Border.all(color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(13),
-          ),
-          child: ShimmerWidget(heigth: 80),
-        ),
+        ShimmerWidget(heigth: 80),
         SizedBox(height: 16),
         Container(
           alignment: Alignment.center,
@@ -133,20 +125,12 @@ class ShimmerCoinDetails extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(13),
-          ),
-          child: Column(
-            children: [
-              ShimmerWidget(heigth: 20),
-              const SizedBox(height: 20),
-              ShimmerWidget(heigth: 140),
-            ],
-          ),
+        Column(
+          children: [
+            ShimmerWidget(heigth: 20),
+            const SizedBox(height: 20),
+            ShimmerWidget(heigth: 140),
+          ],
         ),
       ],
     );

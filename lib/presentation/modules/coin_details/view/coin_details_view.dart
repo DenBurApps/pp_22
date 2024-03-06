@@ -156,46 +156,41 @@ class _CoinDetailsViewState extends State<CoinDetailsView> {
     );
   }
 
-  Future<void> _showNewCollectionDialog() async {
-    await showCupertinoModalPopup(
-      context: context,
-      builder: (context) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: BottomPopUp(
-          title: 'Name new collection',
-          body: [
-            SizedBox(
-              height: 50,
-              child: CupertinoTextField(
-                textAlignVertical: TextAlignVertical.center,
-                textAlign: TextAlign.center,
-                maxLength: 20,
-                autofocus: true,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(13),
-                  color: Theme.of(context).colorScheme.surface,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
+  void _showNewCollectionDialog() => showCupertinoModalPopup(
+        context: context,
+        builder: (context) => Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: BottomPopUp(
+            title: 'Add collection',
+            body: [
+              SizedBox(
+                height: 50,
+                child: CupertinoTextField(
+                  textAlignVertical: TextAlignVertical.center,
+                  textAlign: TextAlign.center,
+                  maxLength: 25,
+                  autofocus: true,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Theme.of(context).colorScheme.surface,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
+                  controller: _collectionNameController,
                 ),
-                controller: _collectionNameController,
               ),
-            ),
-            const SizedBox(height: 30),
-            AppButton(
-              label: 'Save',
-              onPressed: () =>
-                  _addToNewCollection(_collectionNameController.text),
-            )
-          ],
+              const SizedBox(height: 30),
+              AppButton(
+                label: 'Save',
+                onPressed: () =>
+                    _addToNewCollection(_collectionNameController.text),
+              )
+            ],
+          ),
         ),
-      ),
-    );
-    if (_collectionNameController.text.isNotEmpty) {
-      _collectionNameController.clear();
-    }
-  }
+      );
 
   Future<void> _collectionButtonAction() async {
     if (_coinDetailsController.userHasSelectedCollection) {
@@ -243,44 +238,46 @@ class _CoinDetailsViewState extends State<CoinDetailsView> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        physics: const BouncingScrollPhysics(),
-        child: ValueListenableBuilder(
-          valueListenable: _coinDetailsController,
-          builder: (context, value, child) {
-            if (value.isLoading) {
-              return const ShimmerCoinDetails();
-            } else {
-              return Column(
-                children: [
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CoverBuilder(
-                        url: value.coin.obverseThumbnail ?? '',
-                        width: 125,
-                        height: 125,
-                      ),
-                      CoverBuilder(
-                        url: value.coin.reverseThumbnail ?? '',
-                        width: 125,
-                        height: 125,
-                        isErrorReverse: true,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 25),
-                  _CoinDetails(
-                    coin: value.coin as ExpandedCoinData,
-                    coinDetailsController: _coinDetailsController,
-                    collectionButtonAction: _collectionButtonAction,
-                  ),
-                ],
-              );
-            }
-          },
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          physics: const BouncingScrollPhysics(),
+          child: ValueListenableBuilder(
+            valueListenable: _coinDetailsController,
+            builder: (context, value, child) {
+              if (value.isLoading) {
+                return const ShimmerCoinDetails();
+              } else {
+                return Column(
+                  children: [
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CoverBuilder(
+                          url: value.coin.obverseThumbnail ?? '',
+                          width: 125,
+                          height: 125,
+                        ),
+                        CoverBuilder(
+                          url: value.coin.reverseThumbnail ?? '',
+                          width: 125,
+                          height: 125,
+                          isErrorReverse: true,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 25),
+                    _CoinDetails(
+                      coin: value.coin as ExpandedCoinData,
+                      coinDetailsController: _coinDetailsController,
+                      collectionButtonAction: _collectionButtonAction,
+                    ),
+                  ],
+                );
+              }
+            },
+          ),
         ),
       ),
     );
@@ -304,14 +301,13 @@ class _CoinDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _CoinHeader(coin: coin),
-        SizedBox(height: 40),
         _CoinPricePreference(
           coin: coin,
           coinDetailsController: coinDetailsController,
         ),
         SizedBox(height: 50),
         _CoinParametrs(coin: coin),
-        SizedBox(height: 20),
+        SizedBox(height: 40),
         ValueListenableBuilder(
           valueListenable: coinDetailsController,
           builder: (context, value, child) => AppButton(
@@ -478,12 +474,12 @@ class _CoinParametrsState extends State<_CoinParametrs> {
                 Expanded(
                   child: Column(
                     children: [
-                       _CoinParametr(
+                      _CoinParametr(
                         parametr: 'Edge',
                         more: _showMoreDetailsDialog,
-                        value: widget.coin.edge != null ? widget.coin.edge! : '-',
+                        value:
+                            widget.coin.edge != null ? widget.coin.edge! : '-',
                       ),
-                     
                       Spacer(),
                       _CoinParametr(
                         parametr: 'Diameter',

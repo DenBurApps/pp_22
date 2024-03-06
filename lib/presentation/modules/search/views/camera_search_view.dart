@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/models/coin.dart';
 import 'package:pp_22/presentation/components/app_back_button.dart';
 import 'package:pp_22/presentation/components/app_banner.dart';
 import 'package:pp_22/presentation/components/coin_tile.dart';
 import 'package:pp_22/presentation/components/shimmers.dart';
+import 'package:pp_22/presentation/components/sort_button.dart';
 import 'package:pp_22/presentation/modules/search/controller/camera_search_controller.dart';
 import 'package:pp_22/routes/routes.dart';
 
@@ -43,6 +46,36 @@ class _CameraSearchViewState extends State<CameraSearchView> {
 
   void _refresh() => _search();
 
+  void _sort(SortType sortType) {
+    _coinSearchResultController.switchSortType(sortType);
+    Navigator.of(context).pop();
+  }
+
+  void _showSortSheet() => showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          title: Text('Sort'),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.none),
+              child: Text('None'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.minYear),
+              child: Text('Min year'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.maxYear),
+              child: Text('Max year'),
+            )
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: Navigator.of(context).pop,
+            child: Text('Cancel'),
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +110,25 @@ class _CameraSearchViewState extends State<CameraSearchView> {
                     } else if (value.errorMessage != null) {
                       return Text(value.errorMessage!);
                     } else {
+                      List<Coin> coppiedCoins = [];
+                      switch (value.sortType) {
+                        case SortType.none:
+                          coppiedCoins.addAll(value.searchedCoins);
+                          break;
+                        case SortType.maxYear:
+                          coppiedCoins
+                            ..addAll(value.searchedCoins)
+                            ..sort((a, b) => b.maxYear.compareTo(a.maxYear));
+                          break;
+                        case SortType.minYear:
+                          coppiedCoins
+                            ..addAll(value.searchedCoins)
+                            ..sort((a, b) => a.maxYear.compareTo(b.maxYear));
+                          break;
+                      }
                       return _LoadedState(
-                        coins: value.searchedCoins,
+                        coins: coppiedCoins,
+                        sort: _showSortSheet,
                         refresh: _refresh,
                       );
                     }
@@ -97,49 +147,88 @@ class _CameraSearchViewState extends State<CameraSearchView> {
 class _LoadedState extends StatelessWidget {
   final List<Coin> coins;
   final VoidCallback? refresh;
+  final VoidCallback sort;
   const _LoadedState({
     required this.coins,
     this.refresh,
+    required this.sort,
   });
 
   @override
   Widget build(BuildContext context) {
-    return coins.isEmpty
-        ? Column(
-            children: [
-              Text(
-                'Not found',
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              CupertinoButton(
-                onPressed: refresh,
-                child: Icon(
-                  Icons.refresh_rounded,
+    return Column(
+      children: [
+        if (coins.isEmpty) ...[
+          Assets.images.emptySearch.image(
+            width: 148,
+            height: 148,
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Not a single coin was found\nat your request',
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-              )
-            ],
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          CupertinoButton(
+            onPressed: refresh,
+            child: Icon(
+              Icons.refresh_rounded,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           )
-        : ListView.separated(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => CoinTile(
-              coin: coins[index],
-              isSearchingCoinTile: true,
-              onPressed: () => Navigator.of(context).pushNamed(
-                RouteNames.coinDetails,
-                arguments: CoinDetailsViewArguments(
-                  coin: coins[index],
+        ] else ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Found: ',
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onBackground
+                                    .withOpacity(0.5),
+                              ),
+                    ),
+                    TextSpan(
+                      text:
+                          '${coins.length} ${coins.length > 1 ? 'coins' : 'coin'}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ],
                 ),
               ),
+              SortButton(onPressed: sort)
+            ],
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) => CoinTile(
+                coin: coins[index],
+                isSearchingCoinTile: true,
+                onPressed: () => Navigator.of(context).pushNamed(
+                  RouteNames.coinDetails,
+                  arguments: CoinDetailsViewArguments(
+                    coin: coins[index],
+                  ),
+                ),
+              ),
+              separatorBuilder: (context, index) => SizedBox(height: 15),
+              itemCount: coins.length,
             ),
-            separatorBuilder: (context, index) => Divider(
-              color: Theme.of(context).colorScheme.primary,
-              height: 30,
-            ),
-            itemCount: coins.length,
-          );
+          ),
+        ]
+      ],
+    );
   }
 }
 
@@ -152,10 +241,7 @@ class _LoadingState extends StatelessWidget {
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) => const ShimmerCoinTile(),
-      separatorBuilder: (context, index) => const Divider(
-        color: Color(0xFFEEEEEE),
-        height: 30,
-      ),
+      separatorBuilder: (context, index) => SizedBox(height: 15),
       itemCount: 50,
     );
   }

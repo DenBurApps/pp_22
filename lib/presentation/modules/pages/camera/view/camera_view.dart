@@ -131,6 +131,7 @@ class _CameraViewState extends State<CameraView> {
       builder: (context) => SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: BottomPopUp(
+          padding: EdgeInsets.only(top: 20),
           title: 'Snap Tips',
           body: [
             Padding(

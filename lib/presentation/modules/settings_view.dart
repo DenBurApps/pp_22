@@ -5,6 +5,7 @@ import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/helpers/dialog_helper.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/presentation/modules/agreement_view.dart';
+import 'package:pp_22/presentation/modules/pages/collections/views/collections_view.dart';
 import 'package:pp_22/routes/routes.dart';
 
 class SettingsView extends StatefulWidget {
@@ -81,7 +82,13 @@ class _SettingsViewState extends State<SettingsView> {
               _SettingsButton(
                 icon: Assets.icons.settingsCollections,
                 title: 'My collections',
-                onPressed: _rate,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CollectionsView(
+                      isFromSettings: true,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 35),
               Text(

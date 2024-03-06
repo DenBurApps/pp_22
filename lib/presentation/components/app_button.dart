@@ -100,14 +100,15 @@ class AppOutlinedButton extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            border: Border.all(color: Theme.of(context).colorScheme.primary),
-            color: Theme.of(context).colorScheme.surface),
+          borderRadius: BorderRadius.circular(40),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
+          color: Theme.of(context).colorScheme.surface,
+        ),
         child: Text(
           label,
           style: Theme.of(context)
               .textTheme
-              .displayMedium!
+              .displaySmall!
               .copyWith(color: Theme.of(context).colorScheme.primary),
         ),
       ),

@@ -113,7 +113,7 @@ class _QuerySearchViewState extends State<QuerySearchView> {
                           border: Border.all(
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          borderRadius: BorderRadius.circular(40),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         style: Theme.of(context)
                             .textTheme
@@ -217,9 +217,16 @@ class _NotFoundState extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Assets.images.emptySearch.image(
+          width: 148,
+          height: 148,
+        ),
+        SizedBox(height: 20), 
         Text(
           'Not found. Please, try again!',
-          style: Theme.of(context).textTheme.headlineMedium,
+         style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
         ),
         CupertinoButton(
           child: Icon(Icons.refresh_outlined),
@@ -244,7 +251,9 @@ class _ErrorState extends StatelessWidget {
       children: [
         Text(
           'Some error has occured. Please, try again!',
-          style: Theme.of(context).textTheme.headlineMedium,
+         style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
         ),
         CupertinoButton(
           child: Icon(Icons.refresh_outlined),
@@ -260,11 +269,18 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "Let's start searching",
-        style: Theme.of(context).textTheme.displayMedium,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Assets.images.emptySearch.image(width: 148, height: 148),
+        SizedBox(height: 20),
+        Text(
+          "Let's start searching",
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        ),
+      ],
     );
   }
 }
@@ -353,10 +369,7 @@ class _LoadingState extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) => const ShimmerCoinTile(),
-      separatorBuilder: (context, index) => Divider(
-        color: Theme.of(context).colorScheme.primary,
-        height: 30,
-      ),
+      separatorBuilder: (context, index) => SizedBox(height: 15), 
       itemCount: 50,
     );
   }

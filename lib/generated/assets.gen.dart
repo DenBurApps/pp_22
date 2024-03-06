@@ -155,9 +155,17 @@ class $AssetsImagesGen {
   AssetGenImage get coinParams =>
       const AssetGenImage('assets/images/coin_params.png');
 
+  /// File path: assets/images/empty_collection.png
+  AssetGenImage get emptyCollection =>
+      const AssetGenImage('assets/images/empty_collection.png');
+
   /// File path: assets/images/empty_collections.png
   AssetGenImage get emptyCollections =>
       const AssetGenImage('assets/images/empty_collections.png');
+
+  /// File path: assets/images/empty_search.png
+  AssetGenImage get emptySearch =>
+      const AssetGenImage('assets/images/empty_search.png');
 
   /// File path: assets/images/hand.png
   AssetGenImage get hand => const AssetGenImage('assets/images/hand.png');
@@ -191,7 +199,9 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         coinParams,
+        emptyCollection,
         emptyCollections,
+        emptySearch,
         hand,
         icon,
         onboarding1,
