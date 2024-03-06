@@ -15,7 +15,7 @@ class BottomPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
@@ -33,14 +33,15 @@ class BottomPopUp extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(width: 30), 
+                SizedBox(width: 30),
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface),
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
                 ),
-                AppCloseButton(), 
+                AppCloseButton(),
               ],
             ),
           ),

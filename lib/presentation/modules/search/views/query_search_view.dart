@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/models/coin.dart';
-import 'package:pp_22/presentation/components/app_back_button.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 import 'package:pp_22/presentation/components/coin_tile.dart';
 import 'package:pp_22/presentation/components/shimmers.dart';
+import 'package:pp_22/presentation/components/sort_button.dart';
 import 'package:pp_22/presentation/modules/search/controller/query_search_controller.dart';
 import 'package:pp_22/routes/routes.dart';
 
@@ -19,10 +21,27 @@ class QuerySearchView extends StatefulWidget {
 class _QuerySearchViewState extends State<QuerySearchView> {
   final _queryController = TextEditingController();
   final _searchController = QuerySearchController();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  void _init() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _searchController.searchOnScroll(_queryController.text);
+      }
+    });
+  }
 
   @override
   void dispose() {
     _queryController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -34,6 +53,36 @@ class _QuerySearchViewState extends State<QuerySearchView> {
   void _loadingRemainingOnScrolling(String searchQuery) {
     _searchController.searchOnScroll(searchQuery);
   }
+
+  void _sort(SortType sortType) {
+    _searchController.switchSortType(sortType);
+    Navigator.of(context).pop();
+  }
+
+  void _showSortSheet() => showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          title: Text('Sort'),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.none),
+              child: Text('None'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.minYear),
+              child: Text('Min year'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => _sort(SortType.maxYear),
+              child: Text('Max year'),
+            )
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: Navigator.of(context).pop,
+            child: Text('Cancel'),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -51,33 +100,54 @@ class _QuerySearchViewState extends State<QuerySearchView> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppBackButton(),
-                  SizedBox(width: 9),
                   Expanded(
                     child: SizedBox(
-                      height: 50,
+                      height: 40,
                       child: CupertinoTextField(
+                        autofocus: true,
                         clearButtonMode: OverlayVisibilityMode.always,
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         controller: _queryController,
                         onSubmitted: _search,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          borderRadius: BorderRadius.circular(40),
                         ),
-                        prefix: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Assets.icons.search.svg(
-                              color: Theme.of(context).colorScheme.primary),
-                        ),
-                        placeholder: 'Search',
-                        placeholderStyle: Theme.of(context)
+                        style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
-                            .copyWith(color: Colors.black.withOpacity(0.5)),
+                            .copyWith(
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
+                        prefix: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                shape: BoxShape.circle),
+                            child: Assets.icons.search.svg(
+                                color: Theme.of(context).colorScheme.onPrimary),
+                          ),
+                        ),
+                        placeholder: 'Search',
+                        placeholderStyle:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.5),
+                                ),
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(width: 10),
+                  const AppCloseButton(),
                 ],
               ),
               Expanded(
@@ -86,8 +156,26 @@ class _QuerySearchViewState extends State<QuerySearchView> {
                   builder: (context, value, child) {
                     if (value.isResponseReceived) {
                       if (value.searchedCoins.isNotEmpty) {
+                        List<Coin> coppiedCoins = [];
+                        switch (value.sortType) {
+                          case SortType.none:
+                            coppiedCoins.addAll(value.searchedCoins);
+                            break;
+                          case SortType.maxYear:
+                            coppiedCoins
+                              ..addAll(value.searchedCoins)
+                              ..sort((a, b) => b.maxYear.compareTo(a.maxYear));
+                            break;
+                          case SortType.minYear:
+                            coppiedCoins
+                              ..addAll(value.searchedCoins)
+                              ..sort((a, b) => a.maxYear.compareTo(b.maxYear));
+                            break;
+                        }
                         return _LoadedState(
-                          coins: value.searchedCoins,
+                          sort: _showSortSheet,
+                          controller: _scrollController,
+                          coins: coppiedCoins,
                           searchQuery: _queryController.text,
                           onEndScrollCallback: () =>
                               _loadingRemainingOnScrolling(
@@ -175,7 +263,7 @@ class _EmptyState extends StatelessWidget {
     return Center(
       child: Text(
         "Let's start searching",
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context).textTheme.displayMedium,
       ),
     );
   }
@@ -184,43 +272,73 @@ class _EmptyState extends StatelessWidget {
 class _LoadedState extends StatelessWidget {
   final List<Coin> coins;
   final String searchQuery;
+  final ScrollController controller;
   final VoidCallback onEndScrollCallback;
+  final VoidCallback sort;
   const _LoadedState({
     required this.coins,
     required this.searchQuery,
     required this.onEndScrollCallback,
+    required this.controller,
+    required this.sort,
   });
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener(
-      onNotification: (notification) {
-        if (notification is ScrollEndNotification) {
-          onEndScrollCallback.call();
-        }
-        return true;
-      },
-      child: ListView.separated(
-        padding: const EdgeInsets.only(top: 20),
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          final coin = coins[index];
-          return CoinTile(
-            coin: coin,
-            isSearchingCoinTile: true,
-            onPressed: () => Navigator.of(context).pushNamed(
-              RouteNames.coinDetails,
-              arguments: CoinDetailsViewArguments(coin: coin),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Found: ',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5),
+                        ),
+                  ),
+                  TextSpan(
+                    text:
+                        '${coins.length} ${coins.length > 1 ? 'coins' : 'coin'}',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ],
+              ),
             ),
-          );
-        },
-        separatorBuilder: (context, index) => Divider(
-          color: Theme.of(context).colorScheme.primary,
-          height: 30,
+            SortButton(onPressed: sort)
+          ],
         ),
-        itemCount: coins.length,
-      ),
+        SizedBox(height: 20),
+        Expanded(
+          child: ListView.separated(
+            controller: controller,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              final coin = coins[index];
+              return CoinTile(
+                coin: coin,
+                isSearchingCoinTile: true,
+                onPressed: () => Navigator.of(context).pushNamed(
+                  RouteNames.coinDetails,
+                  arguments: CoinDetailsViewArguments(coin: coin),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(
+              height: 15,
+            ),
+            itemCount: coins.length,
+          ),
+        ),
+      ],
     );
   }
 }

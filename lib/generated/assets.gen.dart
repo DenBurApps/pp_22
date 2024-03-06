@@ -32,6 +32,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   SvgGenImage get add => const SvgGenImage('assets/icons/add.svg');
 
+  /// File path: assets/icons/add_coin.svg
+  SvgGenImage get addCoin => const SvgGenImage('assets/icons/add_coin.svg');
+
+  /// File path: assets/icons/add_collection.svg
+  SvgGenImage get addCollection =>
+      const SvgGenImage('assets/icons/add_collection.svg');
+
   /// File path: assets/icons/back.svg
   SvgGenImage get back => const SvgGenImage('assets/icons/back.svg');
 
@@ -41,10 +48,6 @@ class $AssetsIconsGen {
   /// File path: assets/icons/close.svg
   SvgGenImage get close => const SvgGenImage('assets/icons/close.svg');
 
-  /// File path: assets/icons/coin_params.svg
-  SvgGenImage get coinParams =>
-      const SvgGenImage('assets/icons/coin_params.svg');
-
   /// File path: assets/icons/collections.svg
   SvgGenImage get collections =>
       const SvgGenImage('assets/icons/collections.svg');
@@ -52,6 +55,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/contact_developer.svg
   SvgGenImage get contactDeveloper =>
       const SvgGenImage('assets/icons/contact_developer.svg');
+
+  /// File path: assets/icons/delete.svg
+  SvgGenImage get delete => const SvgGenImage('assets/icons/delete.svg');
 
   /// File path: assets/icons/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
@@ -100,6 +106,9 @@ class $AssetsIconsGen {
   SvgGenImage get settingsCollections =>
       const SvgGenImage('assets/icons/settings_collections.svg');
 
+  /// File path: assets/icons/sort.svg
+  SvgGenImage get sort => const SvgGenImage('assets/icons/sort.svg');
+
   /// File path: assets/icons/terms.svg
   SvgGenImage get terms => const SvgGenImage('assets/icons/terms.svg');
 
@@ -110,12 +119,14 @@ class $AssetsIconsGen {
   List<SvgGenImage> get values => [
         aboutUs,
         add,
+        addCoin,
+        addCollection,
         back,
         camera,
         close,
-        coinParams,
         collections,
         contactDeveloper,
+        delete,
         edit,
         flashOff,
         flashOn,
@@ -131,6 +142,7 @@ class $AssetsIconsGen {
         search,
         settings,
         settingsCollections,
+        sort,
         terms,
         version
       ];
@@ -139,9 +151,13 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/coins_home.png
-  AssetGenImage get coinsHome =>
-      const AssetGenImage('assets/images/coins_home.png');
+  /// File path: assets/images/coin_params.png
+  AssetGenImage get coinParams =>
+      const AssetGenImage('assets/images/coin_params.png');
+
+  /// File path: assets/images/empty_collections.png
+  AssetGenImage get emptyCollections =>
+      const AssetGenImage('assets/images/empty_collections.png');
 
   /// File path: assets/images/hand.png
   AssetGenImage get hand => const AssetGenImage('assets/images/hand.png');
@@ -174,7 +190,8 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        coinsHome,
+        coinParams,
+        emptyCollections,
         hand,
         icon,
         onboarding1,

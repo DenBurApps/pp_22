@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/coin.dart';
 import 'package:pp_22/services/coin_api_service.dart';
 
@@ -10,7 +11,7 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
 
   Future<void> search(String searchQuery) async {
     try {
-      value = value.copyWith(isLoading: true);
+      value = value.copyWith(isLoading: true, isResponseReceived: false);
       final searchedCoins =
           await _coinsApiService.getCoinsBySeacrhQuery(searchQuery);
       value = value.copyWith(
@@ -28,7 +29,7 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
 
   Future<void> searchOnScroll(String searchQuery) async {
     try {
-      value = value.copyWith(isLoading: true);
+      value = value.copyWith(isLoading: true,);
       final updatedLoadPage = value.loadedPage + 1;
       final searchedCoins = await _coinsApiService.getCoinsBySeacrhQuery(
         searchQuery,
@@ -55,6 +56,8 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
         searchedCoins: [],
         isResponseReceived: false,
       );
+  void switchSortType(SortType sortType) =>
+      value = value.copyWith(sortType: sortType);
 }
 
 class QuerySearchState {
@@ -62,10 +65,12 @@ class QuerySearchState {
   final bool isLoading;
   final bool isResponseReceived;
   final int loadedPage;
+  final SortType sortType;
   final String? errorMessage;
 
   QuerySearchState({
     required this.searchedCoins,
+    required this.sortType,
     required this.isLoading,
     required this.isResponseReceived,
     this.errorMessage,
@@ -74,6 +79,7 @@ class QuerySearchState {
 
   factory QuerySearchState.initial() => QuerySearchState(
         searchedCoins: [],
+        sortType: SortType.none,
         isLoading: false,
         isResponseReceived: false,
         loadedPage: 0,
@@ -85,8 +91,10 @@ class QuerySearchState {
     bool? isResponseReceived,
     String? errorMessage,
     int? loadedPage,
+    SortType? sortType,
   }) =>
       QuerySearchState(
+        sortType: sortType ?? this.sortType,
         searchedCoins: searchedCoins ?? this.searchedCoins,
         isLoading: isLoading ?? this.isLoading,
         isResponseReceived: isResponseReceived ?? this.isResponseReceived,

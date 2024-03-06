@@ -17,6 +17,7 @@ class CollectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CupertinoButton(
           padding: EdgeInsets.zero,
@@ -26,7 +27,7 @@ class CollectionCard extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
+                color: Color(0xFFA8B3DA),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: collection.coins.isEmpty
@@ -35,9 +36,10 @@ class CollectionCard extends StatelessWidget {
                         'Empty collection',
                         style: Theme.of(context)
                             .textTheme
-                            .titleMedium!
+                            .headlineMedium!
                             .copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary),
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
                       ),
                     )
                   : GridView.builder(
@@ -73,15 +75,29 @@ class CollectionCard extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          '${collection.name} ${collection.coins.isEmpty ? '' : "(${collection.coins.length})"}',
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Color(
-                  0xFF413635,
-                ),
-              ),
-        )
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Text(
+            '${collection.name}',
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+        ),
+        if (collection.coins.isNotEmpty) ...[
+          SizedBox(height: 5),
+          Material(
+            child: Text(
+              '${collection.coins.length} ${collection.coins.length > 1 ? 'coins' : 'coin'}',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(color: Color(0xFF101D4)),
+            ),
+          )
+        ]
       ],
     );
   }

@@ -52,4 +52,61 @@ class DialogHelper {
       ),
     );
   }
+
+  static Future<void> showPrivacyAgreementDialog(
+    BuildContext context, {
+    VoidCallback? yes,
+    VoidCallback? no,
+  }) async {
+    await showCupertinoDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CupertinoAlertDialog(
+        title: Text('Dear user!'),
+        content: Text(
+            'We would be very grateful if you would read the policy of our application and accept the consent. Do you want to continue?'),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text('YES'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              yes?.call();
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text('NO'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              yes?.call();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Future<void> showDeleteDialog(
+    BuildContext context, {
+    VoidCallback? yes,
+    VoidCallback? no,
+  }) async {
+    await showCupertinoDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CupertinoAlertDialog(
+        content: Text(
+            'Do you really want to delete the selected collection? It will be impossible to restore it.'),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text('YES'),
+            onPressed: yes
+          ),
+          CupertinoDialogAction(
+            child: const Text('NO'),
+            onPressed: no, 
+          ),
+        ],
+      ),
+    );
+  }
 }

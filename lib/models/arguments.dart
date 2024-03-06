@@ -6,8 +6,13 @@ import 'package:pp_22/presentation/modules/agreement_view.dart';
 
 class AgreementViewArguments {
   final AgreementType agreementType;
-
-  const AgreementViewArguments({required this.agreementType});
+  final bool usePrivacyAgreement;
+  final bool isFromOnboarding;
+  const AgreementViewArguments({
+    required this.agreementType,
+    this.usePrivacyAgreement = false,
+    this.isFromOnboarding = false, 
+  });
 }
 
 class CollectionViewArguments {

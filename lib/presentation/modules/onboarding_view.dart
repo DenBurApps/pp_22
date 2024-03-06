@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/helpers/dialog_helper.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/presentation/components/app_close_button.dart';
+import 'package:pp_22/presentation/modules/agreement_view.dart';
 import 'package:pp_22/routes/routes.dart';
 import 'package:pp_22/services/database/database_keys.dart';
 import 'package:pp_22/services/database/database_service.dart';
@@ -48,12 +50,36 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   void _progress() {
     if (_currentStep == 2) {
+      _close();
+    } else {
+      setState(() => _currentStep++);
+    }
+  }
+
+  void _close() {
+    final acceptedPrivacy =
+        _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
+    if (!acceptedPrivacy) {
+      DialogHelper.showPrivacyAgreementDialog(
+        context,
+        yes: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.agreement,
+          arguments: AgreementViewArguments(
+            agreementType: AgreementType.privacy,
+            usePrivacyAgreement: true,
+            isFromOnboarding: true,
+          ),
+        ),
+        no: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.paywall,
+          arguments: PaywallViewArguments(isFromOnboarding: true),
+        ),
+      );
+    } else {
       Navigator.of(context).pushReplacementNamed(
         RouteNames.paywall,
         arguments: PaywallViewArguments(isFromOnboarding: true),
       );
-    } else {
-      setState(() => _currentStep++);
     }
   }
 
@@ -61,10 +87,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: AppCloseButton(
-        onPressed: () => Navigator.of(context).pushReplacementNamed(
-          RouteNames.paywall,
-          arguments: PaywallViewArguments(isFromOnboarding: true),
-        ),
+        onPressed: _close, 
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: GestureDetector(

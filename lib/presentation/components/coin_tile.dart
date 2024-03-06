@@ -27,10 +27,19 @@ class CoinTile extends StatelessWidget {
       padding: EdgeInsets.zero,
       child: Row(
         children: [
-          CoverBuilder(
-            url: coin.obverseThumbnail ?? '',
-            width: 70,
-            height: 70,
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+            child: CoverBuilder(
+              url: coin.obverseThumbnail ?? '',
+              width: 70,
+              height: 70,
+            ),
           ),
           const SizedBox(width: 15),
           Expanded(

@@ -4,8 +4,8 @@ import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/models/coin.dart';
 import 'package:pp_22/models/collection.dart';
-import 'package:pp_22/presentation/components/app_back_button.dart';
 import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 import 'package:pp_22/presentation/components/bottom_pop_up.dart';
 import 'package:pp_22/presentation/components/collection_card.dart';
 import 'package:pp_22/presentation/components/cover_builder.dart';
@@ -228,8 +228,16 @@ class _CoinDetailsViewState extends State<CoinDetailsView> {
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 15),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppBackButton(),
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  'Coin',
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+                const AppCloseButton(),
               ],
             ),
           ),
@@ -296,14 +304,14 @@ class _CoinDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _CoinHeader(coin: coin),
-        SizedBox(height: 16),
+        SizedBox(height: 40),
         _CoinPricePreference(
           coin: coin,
           coinDetailsController: coinDetailsController,
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 50),
         _CoinParametrs(coin: coin),
-        SizedBox(height: 16),
+        SizedBox(height: 20),
         ValueListenableBuilder(
           valueListenable: coinDetailsController,
           builder: (context, value, child) => AppButton(
@@ -324,19 +332,14 @@ class _CoinHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-      decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.primary),
-        borderRadius: BorderRadius.circular(13),
-      ),
+    return Align(
+      alignment: Alignment.center,
       child: Text(
         coin.description ?? "Empty coin description",
         style: Theme.of(context)
             .textTheme
-            .displaySmall!
-            .copyWith(color: Theme.of(context).colorScheme.primary),
+            .displayMedium!
+            .copyWith(color: Theme.of(context).colorScheme.onBackground),
       ),
     );
   }
@@ -352,85 +355,67 @@ class _CoinPricePreference extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(13),
-      ),
-      child: Column(
-        children: [
-          Text(
-            'Reference Price',
-            style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
+    return Column(
+      children: [
+        Text(
+          'Reference Price',
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+        ),
+        const SizedBox(height: 20),
+        ValueListenableBuilder(
+          valueListenable: coinDetailsController,
+          builder: (context, value, child) {
+            if (value.isPriceLoading) {
+              return const ShimmerWidget(heigth: 47);
+            } else {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Reference price:',
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                  ),
+                  Text(
+                    value.price == null
+                        ? 'Price was not defined'
+                        : '€${value.price!.left} - ${value.price!.rigth}',
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
+        const SizedBox(height: 20),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          decoration: BoxDecoration(
+            border:
+                Border.all(color: Theme.of(context).colorScheme.onBackground),
+            borderRadius: BorderRadius.circular(40),
           ),
-          const SizedBox(height: 10),
-          ValueListenableBuilder(
-            valueListenable: coinDetailsController,
-            builder: (context, value, child) {
-              if (value.isPriceLoading) {
-                return const ShimmerWidget(heigth: 47);
-              } else {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FittedBox(
-                      child: Text(
-                        value.price == null
-                            ? 'Price was not defined'
-                            : '€${value.price!.left} - ${value.price!.rigth}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    Assets.icons.info.svg(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 18,
-                      height: 18,
-                    ),
-                  ],
-                );
-              }
-            },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Year:', style: Theme.of(context).textTheme.displaySmall),
+              const Spacer(),
+              Text(
+                coin.minYear.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(13),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Year:',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(color: Color(0xFF887F7F)),
-                ),
-                const Spacer(),
-                Text(
-                  coin.minYear.toString(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: Color(0xFF413635)),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
@@ -472,46 +457,34 @@ class _CoinParametrsState extends State<_CoinParametrs> {
       );
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(13),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           Text(
             'Physical features',
             style: Theme.of(context)
                 .textTheme
-                .displaySmall!
-                .copyWith(color: Theme.of(context).colorScheme.onSecondary),
+                .displayLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
           ),
           const SizedBox(height: 20),
           SizedBox(
             height: 140,
+            width: double.infinity,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _CoinParametr(
-                        parametr: 'Thickness',
-                        more: _showMoreDetailsDialog,
-                        value: widget.coin.thickness != null
-                            ? '${widget.coin.thickness}mm'
-                            : '-',
-                      ),
-                      const SizedBox(height: 5),
-                      _CoinParametr(
+                       _CoinParametr(
                         parametr: 'Edge',
                         more: _showMoreDetailsDialog,
-                        value:
-                            widget.coin.edge != null ? widget.coin.edge! : '-',
+                        value: widget.coin.edge != null ? widget.coin.edge! : '-',
                       ),
-                      const SizedBox(height: 5),
+                     
+                      Spacer(),
                       _CoinParametr(
                         parametr: 'Diameter',
                         more: _showMoreDetailsDialog,
@@ -519,7 +492,13 @@ class _CoinParametrsState extends State<_CoinParametrs> {
                             ? '${widget.coin.size}mm'
                             : '-',
                       ),
-                      const SizedBox(height: 5),
+                    ],
+                  ),
+                ),
+                Assets.images.coinParams.image(),
+                Expanded(
+                  child: Column(
+                    children: [
                       _CoinParametr(
                         parametr: 'Weight',
                         more: _showMoreDetailsDialog,
@@ -527,10 +506,17 @@ class _CoinParametrsState extends State<_CoinParametrs> {
                             ? '${widget.coin.weight}gr'
                             : '-',
                       ),
+                      Spacer(),
+                      _CoinParametr(
+                        parametr: 'Thickness',
+                        more: _showMoreDetailsDialog,
+                        value: widget.coin.thickness != null
+                            ? '${widget.coin.thickness}mm'
+                            : '-',
+                      ),
                     ],
                   ),
-                ),
-                Assets.icons.coinParams.svg(),
+                )
               ],
             ),
           ),
@@ -560,9 +546,9 @@ class _CoinParametr extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: '$parametr: ',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+                text: '$parametr:\n',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground),
               ),
               TextSpan(
                 text: value,

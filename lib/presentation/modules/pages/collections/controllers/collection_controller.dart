@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/collection.dart';
 import 'package:pp_22/services/repositories/collection_repository.dart';
 
@@ -10,7 +10,6 @@ class CollectionController extends ValueNotifier<CollectionState> {
   }
 
   final collections = GetIt.instance<CollectionsRepository>();
-
 
   void _init() {
     collections.addListener(_handleLisnetningEvents);
@@ -39,19 +38,27 @@ class CollectionController extends ValueNotifier<CollectionState> {
       value = value.copyWith(collection: repositoryInstance);
     }
   }
+    void switchSortType(SortType sortType) =>
+      value = value.copyWith(sortType: sortType);
 }
 
 class CollectionState {
   final Collection collection;
   final int index;
-
+  final SortType sortType;
   const CollectionState({
     required this.collection,
     required this.index,
+    required this.sortType,
   });
 
-  CollectionState copyWith({Collection? collection}) => CollectionState(
+  CollectionState copyWith({
+    Collection? collection,
+    SortType? sortType,
+  }) =>
+      CollectionState(
         collection: collection ?? this.collection,
         index: index,
+        sortType: sortType ?? this.sortType,
       );
 }

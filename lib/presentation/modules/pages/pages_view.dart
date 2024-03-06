@@ -38,9 +38,9 @@ class _PagesViewState extends State<PagesView> {
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
-            height: 60,
+            height: 70,
             child: Row(
               children: [
                 Expanded(

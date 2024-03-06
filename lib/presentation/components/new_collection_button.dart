@@ -35,8 +35,8 @@ class NewCollectionButton extends StatelessWidget {
         ),
         Text(
           'New collection',
-          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Color(0xFF413635)
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground, 
               ),
         )
       ],

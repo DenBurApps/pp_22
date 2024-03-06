@@ -33,7 +33,7 @@ class AppButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
                 color: Theme.of(context)
                     .colorScheme
                     .onPrimary

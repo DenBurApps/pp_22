@@ -1,13 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pp_22/presentation/components/app_button.dart';
 import 'package:pp_22/presentation/components/loading_animation.dart';
-import 'package:pp_22/routes/routes.dart';
-import 'package:pp_22/services/database/database_keys.dart';
-import 'package:pp_22/services/database/database_service.dart';
 import 'package:pp_22/services/remote_config_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // #docregion platform_imports
@@ -30,11 +25,9 @@ class PrivacyView extends StatefulWidget {
 
 class _PrivacyViewState extends State<PrivacyView> {
   late final WebViewController _controller;
-  final _databaseService = GetIt.I<DatabaseService>();
   final _remoteConfig = GetIt.I<RemoteConfigService>();
 
   var isLoading = true;
-  var agreeButton = false;
 
   String get _cssCode {
     if (Platform.isAndroid) {
@@ -60,15 +53,11 @@ class _PrivacyViewState extends State<PrivacyView> {
       document.head.appendChild(style);
     """;
 
-  bool _parseShowAgreeButton(String input) =>
-      input.contains('showAgreebutton') || input.contains('showAgreeButton');
-
   @override
   void initState() {
     super.initState();
 
-    final privacyLink = _remoteConfig.getString(ConfigKey.privacyLink);
-    setState(() => agreeButton = _parseShowAgreeButton(privacyLink));
+    final link = _remoteConfig.getString(ConfigKey.link);
 
     // #docregion platform_features
     late final PlatformWebViewControllerCreationParams params;
@@ -114,9 +103,6 @@ class _PrivacyViewState extends State<PrivacyView> {
             }
           },
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.contains('showAgreebutton')) {
-              setState(() => agreeButton = true);
-            }
             log('allowing navigation to ${request.url}');
             return NavigationDecision.navigate;
           },
@@ -125,7 +111,7 @@ class _PrivacyViewState extends State<PrivacyView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(privacyLink));
+      ..loadRequest(Uri.parse(link));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -141,43 +127,15 @@ class _PrivacyViewState extends State<PrivacyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          agreeButton ? Colors.white : Theme.of(context).colorScheme.background,
+      backgroundColor: Colors.white,
       body: isLoading
           ? Center(
               child: LoadingAnimation(),
             )
           : SafeArea(
-              child: Stack(
-                children: [
-                  WebViewWidget(controller: _controller),
-                  if (agreeButton)
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              SizedBox(
-                            width: constraints.maxWidth * 0.9,
-                            height: 60,
-                            child: AppButton(
-                              onPressed: _accept,
-                              label: 'Agree with privacy',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+              child: WebViewWidget(controller: _controller),
             ),
     );
   }
 
-  void _accept() {
-    _databaseService.put(DatabaseKeys.acceptedPrivacy, true);
-    Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
-  }
 }

@@ -1,12 +1,10 @@
 import 'dart:typed_data';
-
 import 'package:camera/camera.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/models/arguments.dart';
-import 'package:pp_22/presentation/components/app_button.dart';
 import 'package:pp_22/presentation/components/bottom_pop_up.dart';
 import 'package:pp_22/presentation/components/loading_animation.dart';
 import 'package:pp_22/presentation/modules/pages/camera/controller/camera_controller.dart';

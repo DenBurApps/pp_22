@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pp_22/generated/assets.gen.dart';
+import 'package:pp_22/presentation/components/app_button.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -14,8 +16,9 @@ class HomeView extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               CupertinoButton(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                onPressed: () {},
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(RouteNames.search),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   decoration: BoxDecoration(
@@ -57,7 +60,7 @@ class HomeView extends StatelessWidget {
               ),
               SizedBox(height: 40),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Find your coin’s true worth',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
@@ -66,7 +69,7 @@ class HomeView extends StatelessWidget {
               ),
               SizedBox(height: 9),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Start indentifying with expertise',
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
@@ -78,11 +81,18 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Assets.images.hand.image(
-                  width: double.infinity,
-                ),
+                padding: const EdgeInsets.only(left: 40),
+                child: Assets.images.hand
+                    .image(width: double.infinity, height: 400),
               ),
+              SizedBox(height: 30),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: AppButton(
+                  label: 'Identify Coin',
+                  onPressed: () => Navigator.of(context).pushNamed(RouteNames.camera),
+                ),
+              )
             ],
           ),
         ),
