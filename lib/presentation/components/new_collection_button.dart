@@ -33,6 +33,7 @@ class NewCollectionButton extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 10),
         Text(
           'New collection',
           style: Theme.of(context).textTheme.headlineMedium!.copyWith(

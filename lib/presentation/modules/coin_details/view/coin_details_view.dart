@@ -128,7 +128,7 @@ class _CoinDetailsViewState extends State<CoinDetailsView> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 13,
                     mainAxisSpacing: 13,
-                    childAspectRatio: 170 / 195,
+                    childAspectRatio: 170 / 220,
                   ),
                   itemBuilder: (context, index) => index == collections.length
                       ? NewCollectionButton(

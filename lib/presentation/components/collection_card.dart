@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/models/collection.dart';
 import 'package:pp_22/presentation/components/cover_builder.dart';
 
@@ -31,16 +32,25 @@ class CollectionCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: collection.coins.isEmpty
-                  ? Center(
-                      child: Text(
-                        'Empty collection',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              color: Theme.of(context).colorScheme.onBackground,
-                            ),
-                      ),
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Assets.images.emptyCollection.image(
+                          width: 40,
+                          height: 40,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Empty collection',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                        ),
+                      ],
                     )
                   : GridView.builder(
                       shrinkWrap: true,
@@ -75,8 +85,9 @@ class CollectionCard extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 10),
         Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 5),
           child: Text(
             '${collection.name}',
             overflow: TextOverflow.ellipsis,
@@ -88,13 +99,18 @@ class CollectionCard extends StatelessWidget {
         ),
         if (collection.coins.isNotEmpty) ...[
           SizedBox(height: 5),
-          Material(
-            child: Text(
-              '${collection.coins.length} ${collection.coins.length > 1 ? 'coins' : 'coin'}',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .copyWith(color: Color(0xFF101D4)),
+          Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: Material(
+              child: Text(
+                '${collection.coins.length} ${collection.coins.length > 1 ? 'coins' : 'coin'}',
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
+                    ),
+              ),
             ),
           )
         ]

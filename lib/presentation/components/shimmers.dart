@@ -30,11 +30,20 @@ class ShimmerCoinTile extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 70,
-            height: 70,
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: Colors.grey[600],
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+            child: Container(
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.grey[600],
+                borderRadius: BorderRadius.circular(40),
+              ),
             ),
           ),
           const SizedBox(width: 15),
@@ -106,23 +115,15 @@ class ShimmerCoinDetails extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(height: 20), 
+        SizedBox(height: 20),
         ShimmerWidget(heigth: 80),
         SizedBox(height: 16),
-        Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(13),
-          ),
-          child: Column(
-            children: [
-              ShimmerWidget(heigth: 60),
-              const SizedBox(height: 20),
-              ShimmerWidget(heigth: 60),
-            ],
-          ),
+        Column(
+          children: [
+            ShimmerWidget(heigth: 60),
+            const SizedBox(height: 20),
+            ShimmerWidget(heigth: 60),
+          ],
         ),
         SizedBox(height: 16),
         Column(
@@ -132,6 +133,8 @@ class ShimmerCoinDetails extends StatelessWidget {
             ShimmerWidget(heigth: 140),
           ],
         ),
+        SizedBox(height: 60), 
+         ShimmerWidget(heigth: 50),
       ],
     );
   }
