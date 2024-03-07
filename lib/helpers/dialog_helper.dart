@@ -77,7 +77,7 @@ class DialogHelper {
             child: const Text('NO'),
             onPressed: () {
               Navigator.of(context).pop();
-              yes?.call();
+              no?.call();
             },
           ),
         ],
