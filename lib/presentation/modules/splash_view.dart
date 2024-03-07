@@ -67,9 +67,9 @@ class _SplashViewState extends State<SplashView> {
       if (!seenOnboarding) {
         Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
       } else {
-        final acceptedPrivacy =
-            _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
-        if (!acceptedPrivacy) {
+        final seenPrivacyAgreement =
+            _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
+        if (!seenPrivacyAgreement) {
           DialogHelper.showPrivacyAgreementDialog(
             context,
             yes: () => Navigator.of(context).pushReplacementNamed(

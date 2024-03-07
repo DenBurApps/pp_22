@@ -57,9 +57,10 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   void _close() {
-    final acceptedPrivacy =
-        _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
-    if (!acceptedPrivacy) {
+    final seenPrivacyAgrement =
+        _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
+    if (!seenPrivacyAgrement) {
+      _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
       DialogHelper.showPrivacyAgreementDialog(
         context,
         yes: () => Navigator.of(context).pushReplacementNamed(
@@ -87,7 +88,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: AppCloseButton(
-        onPressed: _close, 
+        onPressed: _close,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: GestureDetector(

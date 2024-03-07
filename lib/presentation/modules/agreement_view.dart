@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:get_it/get_it.dart';
 import 'package:pp_22/helpers/email_helper.dart';
 import 'package:pp_22/helpers/text_helper.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/presentation/components/app_button.dart';
 import 'package:pp_22/presentation/components/app_close_button.dart';
 import 'package:pp_22/routes/routes.dart';
-import 'package:pp_22/services/database/database_keys.dart';
-import 'package:pp_22/services/database/database_service.dart';
 
 class AgreementView extends StatefulWidget {
   final AgreementViewArguments arguments;
@@ -25,7 +22,6 @@ class AgreementView extends StatefulWidget {
 }
 
 class _AgreementViewState extends State<AgreementView> {
-  final _databaseService = GetIt.instance<DatabaseService>();
 
   AgreementType get _agreementType => widget.arguments.agreementType;
 
@@ -42,7 +38,6 @@ class _AgreementViewState extends State<AgreementView> {
       : 'Terms Of Use';
 
   void _accept() {
-    _databaseService.put(DatabaseKeys.acceptedPrivacy, true);
     if (_isFromOnboarding) {
       Navigator.of(context).pushReplacementNamed(
         RouteNames.paywall,
