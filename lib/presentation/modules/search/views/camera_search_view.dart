@@ -4,8 +4,7 @@ import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/models/coin.dart';
-import 'package:pp_22/presentation/components/app_back_button.dart';
-import 'package:pp_22/presentation/components/app_banner.dart';
+import 'package:pp_22/presentation/components/app_close_button.dart';
 import 'package:pp_22/presentation/components/coin_tile.dart';
 import 'package:pp_22/presentation/components/shimmers.dart';
 import 'package:pp_22/presentation/components/sort_button.dart';
@@ -90,14 +89,14 @@ class _CameraSearchViewState extends State<CameraSearchView> {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppBackButton(
-                    onPressed: Navigator.of(context).pop,
+                  SizedBox(width: 30),
+                  Text(
+                    'Searching by images',
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: AppBanner(label: 'Seacrhing by images'),
-                  ),
+                  const AppCloseButton(),
                 ],
               ),
               const SizedBox(height: 20),
