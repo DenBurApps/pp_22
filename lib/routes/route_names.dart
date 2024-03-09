@@ -14,4 +14,5 @@ class RouteNames {
   static const cameraSearch = '/cameraSearch';
   static const coinDetails = '/coinsDetails';
   static const paywall = '/paywall';
+  static const subscription = '/subscription';
 }

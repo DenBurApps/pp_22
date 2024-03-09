@@ -30,7 +30,9 @@ class DatabaseService {
       _collections.deleteAt(collectionIndex);
 
   void updateCollection(
-          int collectionIndex, CollectionEntity updatedCollectionEntity) =>
+    int collectionIndex,
+    CollectionEntity updatedCollectionEntity,
+  ) =>
       _collections.putAt(
         collectionIndex,
         updatedCollectionEntity,

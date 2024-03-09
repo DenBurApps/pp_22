@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/presentation/components/app_close_button.dart';
+import 'package:pp_22/presentation/components/loading_widget.dart';
 import 'package:pp_22/presentation/modules/agreement_view.dart';
+import 'package:pp_22/presentation/modules/paywall/controller/paywall_controller.dart';
 import 'package:pp_22/routes/routes.dart';
+import 'package:pp_22/services/subscription_service.dart';
 
-import '../components/app_button.dart';
+import '../../../components/app_button.dart';
 
 class PayWallView extends StatefulWidget {
   final PaywallViewArguments arguments;
@@ -27,6 +30,8 @@ class PayWallView extends StatefulWidget {
 
 class _PayWallViewState extends State<PayWallView> {
   bool get _isFromOnboarding => widget.arguments.isFromOnboarding;
+  bool get _isFromSubscriptionStatus => widget.arguments.isFromSubscriptionStatus;
+  final _paywallController = PayWallController();
 
   void _showOnErrorDialog(String error) => showCupertinoDialog(
         context: context,
@@ -52,19 +57,70 @@ class _PayWallViewState extends State<PayWallView> {
     }
   }
 
-  Future<void> _makePurchase() async {}
+  Future<void> _makePurchase(ProductId productId) async {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => const LoadingWidget(),
+    );
+    await _paywallController.makePurchase(productId, onError: (error) {
+      Navigator.of(context).pop();
+      _showOnErrorDialog(error);
+    }, onDone: _onDone);
+  }
 
-  Future<void> _restorePurcahse() async {}
+  Future<void> _restorePurcahse() async {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => const LoadingWidget(),
+    );
+    await _paywallController.restorePurchase(
+      onError: (error) {
+        Navigator.of(context).pop();
+        _showOnErrorDialog(error);
+      },
+      onDone: () {
+        if (_paywallController.userHasPremium) {
+          _onDone();
+        } else {
+          Navigator.of(context).pop();
+          showCupertinoDialog(
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+              content: Text(
+                "You need to subscibe firstly",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              actions: [
+                CupertinoActionSheetAction(
+                  onPressed: Navigator.of(context).pop,
+                  child: const Text('OK'),
+                )
+              ],
+            ),
+          );
+        }
+      },
+    );
+  }
 
   void _onDone() {
     if (_isFromOnboarding) {
       Navigator.of(context).pop();
       Navigator.of(context).pushReplacementNamed(RouteNames.pages);
     } else {
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
+      if (_isFromSubscriptionStatus) {
+        Navigator.of(context).popUntil(
+          (route) => route.settings.name == RouteNames.subscription,
+        );
+      } else {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }
     }
   }
+
+  String _getProductPrice() =>
+      _paywallController.getProductPrice(ProductId.premium_1w);
 
   @override
   Widget build(BuildContext context) {
@@ -102,11 +158,11 @@ class _PayWallViewState extends State<PayWallView> {
                   color: Color(0xFFECEDF2),
                   boxShadow: [
                     BoxShadow(
-                  blurRadius: 3,
-                  spreadRadius: 1,
-                  offset: Offset(0, 1),
-                  color: Colors.grey.withOpacity(0.4),
-                )
+                      blurRadius: 3,
+                      spreadRadius: 1,
+                      offset: Offset(0, 1),
+                      color: Colors.grey.withOpacity(0.4),
+                    )
                   ],
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -133,11 +189,11 @@ class _PayWallViewState extends State<PayWallView> {
               SizedBox(height: 20),
               AppButton(
                 label: 'Continue',
-                onPressed: () {},
+                onPressed:() =>  _makePurchase(ProductId.premium_1w),
               ),
               const SizedBox(height: 20),
               Text(
-                'Get Premium access just \$3.99 / week',
+                'Get Premium access just ${_getProductPrice()} / week',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Theme.of(context).colorScheme.onBackground,
                     ),

@@ -13,9 +13,10 @@ class ServiceLocator {
     await GetIt.I.isReady<DatabaseService>();
     GetIt.I.registerSingletonAsync<RemoteConfigService>(
         () => RemoteConfigService().init());
+
+    await GetIt.I.isReady<RemoteConfigService>();
     GetIt.I.registerSingletonAsync(() => SubscriptionService().init());
     await GetIt.I.isReady<SubscriptionService>();
-    await GetIt.I.isReady<RemoteConfigService>();
     GetIt.I.registerSingleton<CoinApiService>(CoinApiService().init());
   }
 

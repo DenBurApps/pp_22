@@ -75,6 +75,19 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               const SizedBox(height: 35),
               Text(
+                'My subscription',
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(height: 13),
+              _SettingsButton(
+                icon: Assets.icons.privacy,
+                title: 'Subscription status',
+                onPressed: () => Navigator.of(context).pushNamed(
+                  RouteNames.subscription,
+                ),
+              ),
+              const SizedBox(height: 35),
+              Text(
                 'My collections',
                 style: Theme.of(context).textTheme.displayMedium,
               ),

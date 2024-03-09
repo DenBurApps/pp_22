@@ -44,8 +44,9 @@ class CoinDetailsViewArguments {
 
 class PaywallViewArguments {
   final bool isFromOnboarding;
-
+  final bool isFromSubscriptionStatus;
   PaywallViewArguments({
     this.isFromOnboarding = false,
+    this.isFromSubscriptionStatus = false, 
   });
 }

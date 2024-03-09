@@ -40,6 +40,7 @@ class SubscriptionService {
       final ids = ProductId.values.map((e) => e.name).toList();
       final products = await Purchases.getProducts(ids);
       _products.addAll(products);
+      log(_products.toString());
     } catch (e) {
       onError?.call();
       log(e.toString());
