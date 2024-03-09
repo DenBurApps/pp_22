@@ -32,4 +32,5 @@ enum ConfigKey {
   link,
   usePrivacy,
   coinApiKey,
+  subscriptionApiKey, 
 }
