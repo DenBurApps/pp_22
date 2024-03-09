@@ -19,6 +19,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  
   runApp(
     AppInfo(
       data: await AppInfoData.get(),
