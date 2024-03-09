@@ -70,6 +70,7 @@ class _SplashViewState extends State<SplashView> {
         final seenPrivacyAgreement =
             _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
         if (!seenPrivacyAgreement) {
+          _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
           DialogHelper.showPrivacyAgreementDialog(
             context,
             yes: () => Navigator.of(context).pushReplacementNamed(

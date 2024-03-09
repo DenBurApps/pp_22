@@ -38,7 +38,7 @@ class _PagesViewState extends State<PagesView> {
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20 ,bottom: 20),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
           child: SizedBox(
             height: 70,
             child: Row(
@@ -54,8 +54,8 @@ class _PagesViewState extends State<PagesView> {
                       children: List.generate(
                         3,
                         (index) => _BottomButton(
-                          onPressed: () =>
-                              _selectModule(_bottomNavigationItems[index].module),
+                          onPressed: () => _selectModule(
+                              _bottomNavigationItems[index].module),
                           bottomNavItem: _bottomNavigationItems[index],
                           isActive: _bottomNavigationItems[index].module ==
                               _currentModule,
@@ -64,7 +64,7 @@ class _PagesViewState extends State<PagesView> {
                     ),
                   ),
                 ),
-                SizedBox(width: 30), 
+                SizedBox(width: 20),
                 _ScanButton(),
               ],
             ),
@@ -101,8 +101,9 @@ class _BottomButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: isActive ? Theme.of(context).colorScheme.onPrimary : null,
-              borderRadius: BorderRadius.circular(40)),
+            color: isActive ? Theme.of(context).colorScheme.onPrimary : null,
+            borderRadius: BorderRadius.circular(40),
+          ),
           child: !isActive
               ? bottomNavItem.icon.svg()
               : Row(
@@ -112,7 +113,7 @@ class _BottomButton extends StatelessWidget {
                       width: 30,
                       height: 30,
                     ),
-                    SizedBox(width: 10),
+                  SizedBox(width: 7), 
                     Text(
                       bottomNavItem.module.label,
                       style:

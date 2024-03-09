@@ -92,7 +92,8 @@ class HomeView extends StatelessWidget {
                   label: 'Identify Coin',
                   onPressed: () => Navigator.of(context).pushNamed(RouteNames.camera),
                 ),
-              )
+              ), 
+              SizedBox(height: 30), 
             ],
           ),
         ),
