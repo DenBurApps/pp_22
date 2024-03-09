@@ -126,7 +126,6 @@ class _CameraViewState extends State<CameraView> {
             CupertinoActionSheetAction(
               onPressed: () {
                 if (_cameraController.canUserSendPhotoRequest) {
-                  _cameraController.decreaseSearchByPhotoCount();
                   if (_cameraController.value.isFlashActive) {
                     _cameraController.disableFlash();
                   }

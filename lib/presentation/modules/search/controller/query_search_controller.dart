@@ -27,6 +27,7 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
         isLoading: false,
         isResponseReceived: true,
       );
+      _subscriptionRepository.decreaseSearchByQueryCount();
     } catch (e) {
       value = value.copyWith(
         isLoading: false,
@@ -69,7 +70,7 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
   void switchSortType(SortType sortType) =>
       value = value.copyWith(sortType: sortType);
 
-       void decreaseSearchByQueryCoun() =>
+  void decreaseSearchByQueryCoun() =>
       _subscriptionRepository.decreaseSearchByQueryCount();
 
   void tooltipAction({VoidCallback? showSearchTooltip}) {
