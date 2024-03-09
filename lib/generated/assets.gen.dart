@@ -109,6 +109,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/sort.svg
   SvgGenImage get sort => const SvgGenImage('assets/icons/sort.svg');
 
+  /// File path: assets/icons/subscription.svg
+  SvgGenImage get subscription =>
+      const SvgGenImage('assets/icons/subscription.svg');
+
   /// File path: assets/icons/terms.svg
   SvgGenImage get terms => const SvgGenImage('assets/icons/terms.svg');
 
@@ -143,6 +147,7 @@ class $AssetsIconsGen {
         settings,
         settingsCollections,
         sort,
+        subscription,
         terms,
         version
       ];

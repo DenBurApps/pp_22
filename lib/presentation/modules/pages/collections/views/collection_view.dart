@@ -92,15 +92,30 @@ class _CollectionViewState extends State<CollectionView> {
           title: 'Add coin',
           body: [
             AppButton(
-              label: 'Identify by photo',
-              onPressed: () =>
-                  Navigator.of(context).popAndPushNamed(RouteNames.camera),
-            ),
+                label: 'Identify by photo',
+                onPressed: () {
+                  if (_collectionConroller.canUserUseCollections) {
+                    Navigator.of(context).popAndPushNamed(RouteNames.camera);
+                  } else {
+                    Navigator.of(context).popAndPushNamed(
+                      RouteNames.paywall,
+                      arguments: PaywallViewArguments(),
+                    );
+                  }
+                }),
             const SizedBox(height: 30),
             AppOutlinedButton(
               label: 'Search by name',
-              onPressed: () =>
-                  Navigator.of(context).popAndPushNamed(RouteNames.search),
+              onPressed: () {
+                if (_collectionConroller.canUserUseCollections) {
+                  Navigator.of(context).popAndPushNamed(RouteNames.search);
+                } else {
+                  Navigator.of(context).popAndPushNamed(
+                    RouteNames.paywall,
+                    arguments: PaywallViewArguments(),
+                  );
+                }
+              },
             )
           ],
         ),

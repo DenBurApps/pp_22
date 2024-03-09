@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_22/models/collection.dart';
 import 'package:pp_22/services/repositories/collection_repository.dart';
+import 'package:pp_22/services/repositories/subscription_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class CollectionsController extends ValueNotifier<CollectionsState> {
@@ -11,6 +12,10 @@ class CollectionsController extends ValueNotifier<CollectionsState> {
   }
 
   final _collectionsRepository = GetIt.instance<CollectionsRepository>();
+  final _subscriptionRepository = GetIt.instance<SubscriptionRepositoy>() ;
+
+    bool get canUserUseCollections =>
+      _subscriptionRepository.canUserUseCollections;
 
   void _init() {
     value = value.copyWith(collections: _collectionsRepository.value.data);

@@ -12,6 +12,7 @@ import 'package:pp_22/presentation/components/cover_builder.dart';
 import 'package:pp_22/presentation/components/new_collection_button.dart';
 import 'package:pp_22/presentation/components/shimmers.dart';
 import 'package:pp_22/presentation/modules/coin_details/controller/coin_details_controller.dart';
+import 'package:pp_22/routes/routes.dart';
 
 class CoinDetailsView extends StatefulWidget {
   final CoinDetailsViewArguments coinDetailsViewArguments;
@@ -55,19 +56,33 @@ class _CoinDetailsViewState extends State<CoinDetailsView> {
   }
 
   void _addToNewCollection(String name) {
-    if (name.isNotEmpty) {
-      _coinDetailsController.addToNewCollection(name);
-      Navigator.of(context).pop();
+    if (_coinDetailsController.canUserUseCollections) {
+      if (name.isNotEmpty) {
+        _coinDetailsController.addToNewCollection(name);
+        Navigator.of(context).pop();
+      }
+    } else {
+      Navigator.of(context).pushNamed(
+        RouteNames.paywall,
+        arguments: PaywallViewArguments(),
+      );
     }
   }
 
   void _addToExistCollection(Collection collection, int collectionIndex) {
-    final wasAdded = _coinDetailsController.addToExistCollection(
-        collectionIndex, collection);
-    if (wasAdded) {
-      Navigator.of(context).pop();
+    if (_coinDetailsController.canUserUseCollections) {
+      final wasAdded = _coinDetailsController.addToExistCollection(
+          collectionIndex, collection);
+      if (wasAdded) {
+        Navigator.of(context).pop();
+      } else {
+        _showCoinAlreadyInCollectionDialog();
+      }
     } else {
-      _showCoinAlreadyInCollectionDialog();
+      Navigator.of(context).pushNamed(
+        RouteNames.paywall,
+        arguments: PaywallViewArguments(),
+      );
     }
   }
 

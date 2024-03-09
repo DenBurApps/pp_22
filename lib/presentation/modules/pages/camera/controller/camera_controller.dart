@@ -1,13 +1,23 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:camera/camera.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pp_22/services/database/database_keys.dart';
+import 'package:pp_22/services/database/database_service.dart';
+import 'package:pp_22/services/repositories/subscription_repository.dart';
 
 class ICameraController extends ValueNotifier<CameraState> {
   ICameraController() : super(CameraState.initial()) {
     _init();
   }
+
+  final _subscriptionRepository = GetIt.instance<SubscriptionRepositoy>();
+  final _databaseService = GetIt.instance<DatabaseService>();
+  bool get userhasPremiuim => _subscriptionRepository.value.userHasPremium;
+  bool get canUserSendPhotoRequest =>
+      _subscriptionRepository.canUserSendPhotoRequest;
 
   final _imagePicker = ImagePicker();
 
@@ -126,6 +136,18 @@ class ICameraController extends ValueNotifier<CameraState> {
   }
 
   void refresh() => _init();
+
+    void decreaseSearchByPhotoCount() =>
+      _subscriptionRepository.decreaseSearchByPhotoCount();
+
+  void tooltipAction({VoidCallback? showCameraTooltip}) {
+    final seenCameraTooltip =
+        _databaseService.get(DatabaseKeys.seenCameraTooltip) ?? false;
+    if (!seenCameraTooltip && !_subscriptionRepository.value.userHasPremium) {
+      showCameraTooltip?.call();
+      _databaseService.put(DatabaseKeys.seenCameraTooltip, true);
+    }
+  }
 }
 
 class CameraState {

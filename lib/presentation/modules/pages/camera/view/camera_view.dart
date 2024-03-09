@@ -20,6 +20,40 @@ class CameraView extends StatefulWidget {
 class _CameraViewState extends State<CameraView> {
   final _cameraController = ICameraController();
 
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  void _init() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _cameraController.tooltipAction(
+        showCameraTooltip: () => showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text(
+              'On the free version, you can search using photos only 4 times',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            actions: [
+              CupertinoActionSheetAction(
+                onPressed: Navigator.of(context).pop,
+                child: Text(
+                  'Got It',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
   void _flashAction() => _cameraController.flashAction();
 
   void _setZoom(double zoom) => _cameraController.setZoom(zoom);
@@ -91,17 +125,25 @@ class _CameraViewState extends State<CameraView> {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                if (_cameraController.value.isFlashActive) {
-                  _cameraController.disableFlash();
+                if (_cameraController.canUserSendPhotoRequest) {
+                  _cameraController.decreaseSearchByPhotoCount();
+                  if (_cameraController.value.isFlashActive) {
+                    _cameraController.disableFlash();
+                  }
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteNames.cameraSearch,
+                    (route) => route.settings.name == RouteNames.pages,
+                    arguments: CameraSearchViewArguments(
+                      obverse: _cameraController.value.obverse,
+                      reverse: _cameraController.value.reverse,
+                    ),
+                  );
+                } else {
+                  Navigator.of(context).popAndPushNamed(
+                    RouteNames.paywall,
+                    arguments: PaywallViewArguments(),
+                  );
                 }
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  RouteNames.cameraSearch,
-                  (route) => route.settings.name == RouteNames.pages,
-                  arguments: CameraSearchViewArguments(
-                    obverse: _cameraController.value.obverse,
-                    reverse: _cameraController.value.reverse,
-                  ),
-                );
               },
               child: Text(
                 'YES',
@@ -135,7 +177,7 @@ class _CameraViewState extends State<CameraView> {
           title: 'Snap Tips',
           body: [
             Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'To scan a coin: ',
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -149,7 +191,7 @@ class _CameraViewState extends State<CameraView> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-              SizedBox(height: 20),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(

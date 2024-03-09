@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pp_22/generated/assets.gen.dart';
 import 'package:pp_22/models/arguments.dart';
 import 'package:pp_22/presentation/components/app_close_button.dart';
-import 'package:pp_22/presentation/components/loading_widget.dart';
+import 'package:pp_22/presentation/components/loading_animation.dart';
 import 'package:pp_22/presentation/modules/agreement_view.dart';
 import 'package:pp_22/presentation/modules/paywall/controller/paywall_controller.dart';
 import 'package:pp_22/routes/routes.dart';
@@ -30,14 +30,15 @@ class PayWallView extends StatefulWidget {
 
 class _PayWallViewState extends State<PayWallView> {
   bool get _isFromOnboarding => widget.arguments.isFromOnboarding;
-  bool get _isFromSubscriptionStatus => widget.arguments.isFromSubscriptionStatus;
+  bool get _isFromSubscriptionStatus =>
+      widget.arguments.isFromSubscriptionStatus;
   final _paywallController = PayWallController();
 
   void _showOnErrorDialog(String error) => showCupertinoDialog(
         context: context,
         builder: (context) => CupertinoAlertDialog(
           content: Text(
-            error,
+            'Some error has occured!',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           actions: [
@@ -60,18 +61,22 @@ class _PayWallViewState extends State<PayWallView> {
   Future<void> _makePurchase(ProductId productId) async {
     showCupertinoDialog(
       context: context,
-      builder: (context) => const LoadingWidget(),
+      builder: (context) => const LoadingAnimation(),
     );
-    await _paywallController.makePurchase(productId, onError: (error) {
-      Navigator.of(context).pop();
-      _showOnErrorDialog(error);
-    }, onDone: _onDone);
+    await _paywallController.makePurchase(
+      productId,
+      onError: (error) {
+        Navigator.of(context).pop();
+        _showOnErrorDialog(error);
+      },
+      onDone: _onDone,
+    );
   }
 
   Future<void> _restorePurcahse() async {
     showCupertinoDialog(
       context: context,
-      builder: (context) => const LoadingWidget(),
+      builder: (context) => const LoadingAnimation(),
     );
     await _paywallController.restorePurchase(
       onError: (error) {
@@ -189,7 +194,7 @@ class _PayWallViewState extends State<PayWallView> {
               SizedBox(height: 20),
               AppButton(
                 label: 'Continue',
-                onPressed:() =>  _makePurchase(ProductId.premium_1w),
+                onPressed: () => _makePurchase(ProductId.premium_1w),
               ),
               const SizedBox(height: 20),
               Text(

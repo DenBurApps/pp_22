@@ -20,7 +20,7 @@ class QuerySearchView extends StatefulWidget {
 
 class _QuerySearchViewState extends State<QuerySearchView> {
   final _queryController = TextEditingController();
-  final _searchController = QuerySearchController();
+  final _querySearchController = QuerySearchController();
   final _scrollController = ScrollController();
 
   @override
@@ -30,10 +30,35 @@ class _QuerySearchViewState extends State<QuerySearchView> {
   }
 
   void _init() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _querySearchController.tooltipAction(
+        showSearchTooltip: () => showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text(
+              'On the free version, you can search using search query only 4 times',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            actions: [
+              CupertinoActionSheetAction(
+                onPressed: Navigator.of(context).pop,
+                child: Text(
+                  'Got It',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _searchController.searchOnScroll(_queryController.text);
+        _querySearchController.searchOnScroll(_queryController.text);
       }
     });
   }
@@ -47,15 +72,22 @@ class _QuerySearchViewState extends State<QuerySearchView> {
 
   void _search(String searchQuery) {
     if (searchQuery.isEmpty) return;
-    _searchController.search(searchQuery);
+    if (_querySearchController.canUserSendQueryRequest) {
+      _querySearchController.search(searchQuery);
+    } else {
+      Navigator.of(context).pushNamed(
+        RouteNames.paywall,
+        arguments: PaywallViewArguments(),
+      );
+    }
   }
 
   void _loadingRemainingOnScrolling(String searchQuery) {
-    _searchController.searchOnScroll(searchQuery);
+    _querySearchController.searchOnScroll(searchQuery);
   }
 
   void _sort(SortType sortType) {
-    _searchController.switchSortType(sortType);
+    _querySearchController.switchSortType(sortType);
     Navigator.of(context).pop();
   }
 
@@ -152,7 +184,7 @@ class _QuerySearchViewState extends State<QuerySearchView> {
               ),
               Expanded(
                 child: ValueListenableBuilder(
-                  valueListenable: _searchController,
+                  valueListenable: _querySearchController,
                   builder: (context, value, child) {
                     if (value.isResponseReceived) {
                       if (value.searchedCoins.isNotEmpty) {
@@ -221,10 +253,10 @@ class _NotFoundState extends StatelessWidget {
           width: 148,
           height: 148,
         ),
-        SizedBox(height: 20), 
+        SizedBox(height: 20),
         Text(
           'Not found. Please, try again!',
-         style: Theme.of(context).textTheme.displayMedium!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
         ),
@@ -251,7 +283,7 @@ class _ErrorState extends StatelessWidget {
       children: [
         Text(
           'Some error has occured. Please, try again!',
-         style: Theme.of(context).textTheme.displayMedium!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
         ),
@@ -369,7 +401,7 @@ class _LoadingState extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) => const ShimmerCoinTile(),
-      separatorBuilder: (context, index) => SizedBox(height: 15), 
+      separatorBuilder: (context, index) => SizedBox(height: 15),
       itemCount: 50,
     );
   }

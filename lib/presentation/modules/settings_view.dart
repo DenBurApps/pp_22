@@ -80,7 +80,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               const SizedBox(height: 13),
               _SettingsButton(
-                icon: Assets.icons.privacy,
+                icon: Assets.icons.subscription,
                 title: 'Subscription status',
                 onPressed: () => Navigator.of(context).pushNamed(
                   RouteNames.subscription,

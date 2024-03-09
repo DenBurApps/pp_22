@@ -120,15 +120,16 @@ class SubscriptionState {
 
   factory SubscriptionState.initial() => const SubscriptionState(
         userHasPremium: false,
-        searchByPhotoCount: 3,
-        searchByQueryCount: 3,
+        searchByPhotoCount: 4,
+        searchByQueryCount: 4,
       );
 
-  SubscriptionState copyWith(
-          {bool? userHasPremium,
-          int? searchByQueryCount,
-          int? searchByPhotoCount,
-          CustomerInfo? customerInfo}) =>
+  SubscriptionState copyWith({
+    bool? userHasPremium,
+    int? searchByQueryCount,
+    int? searchByPhotoCount,
+    CustomerInfo? customerInfo,
+  }) =>
       SubscriptionState(
         userHasPremium: userHasPremium ?? this.userHasPremium,
         searchByQueryCount: searchByQueryCount ?? this.searchByQueryCount,

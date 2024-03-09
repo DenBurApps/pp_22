@@ -3,11 +3,19 @@ import 'package:get_it/get_it.dart';
 import 'package:pp_22/helpers/enums.dart';
 import 'package:pp_22/models/coin.dart';
 import 'package:pp_22/services/coin_api_service.dart';
+import 'package:pp_22/services/database/database_keys.dart';
+import 'package:pp_22/services/database/database_service.dart';
+import 'package:pp_22/services/repositories/subscription_repository.dart';
 
 class QuerySearchController extends ValueNotifier<QuerySearchState> {
   QuerySearchController() : super(QuerySearchState.initial());
 
+  final _subscriptionRepository = GetIt.instance<SubscriptionRepositoy>();
+  final _databaseService = GetIt.instance<DatabaseService>();
   final _coinsApiService = GetIt.instance<CoinApiService>();
+
+  bool get canUserSendQueryRequest =>
+      _subscriptionRepository.canYserSendQueryRequest;
 
   Future<void> search(String searchQuery) async {
     try {
@@ -29,7 +37,9 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
 
   Future<void> searchOnScroll(String searchQuery) async {
     try {
-      value = value.copyWith(isLoading: true,);
+      value = value.copyWith(
+        isLoading: true,
+      );
       final updatedLoadPage = value.loadedPage + 1;
       final searchedCoins = await _coinsApiService.getCoinsBySeacrhQuery(
         searchQuery,
@@ -58,6 +68,18 @@ class QuerySearchController extends ValueNotifier<QuerySearchState> {
       );
   void switchSortType(SortType sortType) =>
       value = value.copyWith(sortType: sortType);
+
+       void decreaseSearchByQueryCoun() =>
+      _subscriptionRepository.decreaseSearchByQueryCount();
+
+  void tooltipAction({VoidCallback? showSearchTooltip}) {
+    final seenSearchTooltip =
+        _databaseService.get(DatabaseKeys.seenSearchTooltip) ?? false;
+    if (!seenSearchTooltip && !_subscriptionRepository.value.userHasPremium) {
+      _databaseService.put(DatabaseKeys.seenSearchTooltip, true);
+      showSearchTooltip?.call();
+    }
+  }
 }
 
 class QuerySearchState {

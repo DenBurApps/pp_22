@@ -5,6 +5,7 @@ import 'package:pp_22/models/collection.dart';
 import 'package:pp_22/models/price.dart';
 import 'package:pp_22/services/coin_api_service.dart';
 import 'package:pp_22/services/repositories/collection_repository.dart';
+import 'package:pp_22/services/repositories/subscription_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class CoinDetailsController extends ValueNotifier<CoinDetailState> {
@@ -12,17 +13,21 @@ class CoinDetailsController extends ValueNotifier<CoinDetailState> {
     _init(value.coin);
   }
 
-  CollectionsRepository get collections => _collections;
+  CollectionsRepository get collections => _collectionsRepository;
 
-  Collection get selectedCollection =>
-      _collections.value.data[_collections.value.selectedIndex!];
+  Collection get selectedCollection => _collectionsRepository
+      .value.data[_collectionsRepository.value.selectedIndex!];
 
   bool get userHasSelectedCollection => value.selectedCollection != null;
 
   bool get selectedCollectionContainsCoin =>
       value.selectedCollection?.coins.contains(value.coin) ?? false;
 
-  final _collections = GetIt.instance<CollectionsRepository>();
+  bool get canUserUseCollections =>
+      _subscriptionRepository.canUserUseCollections;
+
+  final _collectionsRepository = GetIt.instance<CollectionsRepository>();
+  final _subscriptionRepository = GetIt.instance<SubscriptionRepositoy>();
 
   final _apiService = GetIt.instance<CoinApiService>();
 
@@ -32,9 +37,9 @@ class CoinDetailsController extends ValueNotifier<CoinDetailState> {
     }
 
     Collection? selectedCollection;
-    if (_collections.value.selectedIndex != null) {
-      selectedCollection =
-          _collections.value.data[_collections.value.selectedIndex!];
+    if (_collectionsRepository.value.selectedIndex != null) {
+      selectedCollection = _collectionsRepository
+          .value.data[_collectionsRepository.value.selectedIndex!];
     }
     value = value.copyWith(
       selectedCollection: selectedCollection,
@@ -75,7 +80,7 @@ class CoinDetailsController extends ValueNotifier<CoinDetailState> {
       final updatedCoinsArray = collection.coins
         ..add(value.coin as ExpandedCoinData);
       final updatedCollection = collection.copyWith(coins: updatedCoinsArray);
-      _collections.updateData(updatedCollection, collectionIndex);
+      _collectionsRepository.updateData(updatedCollection, collectionIndex);
       return true;
     }
   }
@@ -86,7 +91,7 @@ class CoinDetailsController extends ValueNotifier<CoinDetailState> {
       coins: [value.coin as ExpandedCoinData],
       id: const Uuid().v4(),
     );
-    _collections.createCollection(newCollection);
+    _collectionsRepository.createCollection(newCollection);
   }
 
   void addToSelectedCollection() {
